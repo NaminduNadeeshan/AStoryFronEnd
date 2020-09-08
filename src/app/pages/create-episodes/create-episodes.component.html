@@ -1,0 +1,84 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <!-- <app-header-chart></app-header-chart> -->
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Create A Story</h3>
+        </div>
+        <div class="card-body">
+          <form>
+            {{isStorySelected}}
+            <div class="pl-lg-4">
+              <div *ngIf="isStorySelected; else hi" class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Story Name</label>
+                    &nbsp; &nbsp;<label class="form-control-label" for="input-username">සුලග නුබ සහ මම</label>
+                  </div>
+                </div>
+              </div>
+              <ng-template #hi>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label class="form-control-label">Select Story</label>
+                      <select class="form-control form-control-alternative" value="">
+                        <option>සුලග නුබ සහ මම</option>
+                        <option>අනන්තය</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Episode Name</label>
+                    <input type="select" id="input-username" class="form-control form-control-alternative"
+                      placeholder="Story Name" value="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Image Url</label>
+                    <input type="select" id="input-username" class="form-control form-control-alternative"
+                      placeholder="Story Name" value="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Story Discription</label>
+                    <app-ck-editor></app-ck-editor>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-success"><i class="ni ni-fat-add"></i> Save</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <hr class="my-4" />
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

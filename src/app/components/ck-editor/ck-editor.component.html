@@ -1,0 +1,24 @@
+<ckeditor [editor]="Editor" [config]="{
+  toolbar: {
+    items: [
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      '|',
+      'bulletedList',
+      'numberedList',
+      '|',
+      'insertTable',
+      '|',
+      'undo',
+      'redo'
+    ]
+  },
+  table: {
+    contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+  }
+ ,
+  language: 'en'
+}" data="<p>Hello, world!</p>">
+</ckeditor>
