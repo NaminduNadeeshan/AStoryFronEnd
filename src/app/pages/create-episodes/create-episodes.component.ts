@@ -22,15 +22,15 @@ export class CreateEpisodesComponent implements OnInit {
 
 
   ngOnInit() {
-  //   this.isStorySelected = this.activeRoutes.paramMap.pipe( map((res) => {
-  //     const currentId = res.get('id');
-  //     if (currentId) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }));
-  // }
+    this.activeRoutes.queryParams.subscribe(param => {
+      this.storyId = param['id'];
+      if (this.storyId) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 
   // this.activeRoutes.queryParams.subscribe(params => {
   //   this.storyId = params['id'];
@@ -42,10 +42,9 @@ export class CreateEpisodesComponent implements OnInit {
   //     this.isStorySelected = false;
   //   }
 
-  this.activeRoutes.paramMap.pipe(
-    switchMap(params => {
-      this.storyId = params['id'];
-    })
-  );
+  // this.activeRoutes.paramMap.pipe(
+  //   switchMap(params => {
+  //     this.storyId = params['id'];
+  //   })
+  // );
   }
-}
