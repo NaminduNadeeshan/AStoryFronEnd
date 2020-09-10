@@ -8,6 +8,8 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { AuthService } from 'src/Services/Auth.service';
+import { RouterEvent, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +24,7 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
 
@@ -50,7 +52,11 @@ export class DashboardComponent implements OnInit {
 			type: 'line',
 			options: chartExample1.options,
 			data: chartExample1.data
-		});
+    });
+
+    if (!this.authService.isSignedInUser()) {
+      this.router.navigate(['/login']);
+    }
   }
 
 

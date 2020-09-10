@@ -72066,6 +72066,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateEpisodesComponent", function() { return CreateEpisodesComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/Services/Auth.service */ "./src/Services/Auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -72080,11 +72081,17 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 };
 
 
+
 let CreateEpisodesComponent = class CreateEpisodesComponent {
-    constructor(activeRoutes) {
+    constructor(activeRoutes, authService, router) {
+        this.authService = authService;
+        this.router = router;
         this.activeRoutes = activeRoutes;
     }
     ngOnInit() {
+        if (!this.authService.isSignedInUser()) {
+            this.router.navigate(['/login']);
+        }
         this.activeRoutes.queryParams.subscribe(param => {
             this.storyId = param['id'];
             if (this.storyId) {
@@ -72097,7 +72104,9 @@ let CreateEpisodesComponent = class CreateEpisodesComponent {
     }
 };
 CreateEpisodesComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] },
+    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
 ];
 CreateEpisodesComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -72105,7 +72114,7 @@ CreateEpisodesComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./create-episodes.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/create-episodes/create-episodes.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./create-episodes.component.scss */ "./src/app/pages/create-episodes/create-episodes.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
 ], CreateEpisodesComponent);
 
 
@@ -72139,6 +72148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/Services/Auth.service */ "./src/Services/Auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -72154,12 +72164,18 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let CreateStoryComponent = class CreateStoryComponent {
-    constructor(router) {
+    constructor(router, authService) {
+        this.authService = authService;
         this.Editor = _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__;
         this.router = router;
     }
-    ngOnInit() { }
+    ngOnInit() {
+        if (!this.authService.isSignedInUser()) {
+            this.router.navigate(['/login']);
+        }
+    }
     goToEpisode() {
         this.router.navigateByUrl('/add-episode/14');
     }
@@ -72168,7 +72184,8 @@ let CreateStoryComponent = class CreateStoryComponent {
     }
 };
 CreateStoryComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"] }
 ];
 CreateStoryComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -72176,7 +72193,7 @@ CreateStoryComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./create-story.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/create-story/create-story.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./create-story.component.scss */ "./src/app/pages/create-story/create-story.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]])
 ], CreateStoryComponent);
 
 
@@ -72210,6 +72227,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/src/chart.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _variables_charts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../variables/charts */ "./src/app/variables/charts.ts");
+/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/Services/Auth.service */ "./src/Services/Auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -72226,8 +72245,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 // core components
 
+
+
 let DashboardComponent = class DashboardComponent {
-    constructor() {
+    constructor(authService, router) {
+        this.authService = authService;
+        this.router = router;
         this.clicked = true;
         this.clicked1 = false;
     }
@@ -72250,19 +72273,26 @@ let DashboardComponent = class DashboardComponent {
             options: _variables_charts__WEBPACK_IMPORTED_MODULE_2__["chartExample1"].options,
             data: _variables_charts__WEBPACK_IMPORTED_MODULE_2__["chartExample1"].data
         });
+        if (!this.authService.isSignedInUser()) {
+            this.router.navigate(['/login']);
+        }
     }
     updateOptions() {
         this.salesChart.data.datasets[0].data = this.data;
         this.salesChart.update();
     }
 };
+DashboardComponent.ctorParameters = () => [
+    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+];
 DashboardComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-dashboard',
         template: __importDefault(__webpack_require__(/*! raw-loader!./dashboard.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/dashboard/dashboard.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./dashboard.component.scss */ "./src/app/pages/dashboard/dashboard.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], DashboardComponent);
 
 
@@ -72403,6 +72433,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileComponent", function() { return UserProfileComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/Services/Auth.service */ "./src/Services/Auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -72416,19 +72448,31 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
+
+
 let UserProfileComponent = class UserProfileComponent {
-    constructor() { }
+    constructor(authService, router) {
+        this.authService = authService;
+        this.router = router;
+    }
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
+        if (!this.authService.isSignedInUser()) {
+            this.router.navigate(['/login']);
+        }
     }
 };
+UserProfileComponent.ctorParameters = () => [
+    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+];
 UserProfileComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-user-profile',
         template: __importDefault(__webpack_require__(/*! raw-loader!./user-profile.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/pages/user-profile/user-profile.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./user-profile.component.scss */ "./src/app/pages/user-profile/user-profile.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
 ], UserProfileComponent);
 
 
