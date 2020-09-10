@@ -3,6 +3,7 @@ import { AuthService } from 'src/Services/Auth.service';
 import * as Firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,16 @@ import 'firebase/database';
 })
 export class LoginComponent implements OnInit {
 
-public auth: AuthService;
-  constructor(auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
     this.auth = auth;
   }
 
   ngOnInit() {
+    if (this.auth.isSignedInUser()) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   loginUser() {
