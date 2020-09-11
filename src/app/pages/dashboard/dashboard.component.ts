@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
      const chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-		type: 'line',
+		  type: 'line',
 			options: chartExample1.options,
 			data: chartExample1.data
     });

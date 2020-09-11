@@ -61,7 +61,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<nav class=\"navbar navbar-top navbar-expand-md navbar-dark\" id=\"navbar-main\">\n  <div class=\"container-fluid\">\n    <!-- Brand -->\n    <a class=\"h4 mb-0 text-white text-uppercase d-none d-lg-inline-block\" routerLinkActive=\"active\"\n      [routerLink]=\"['/dashboard']\">{{getTitle()}}</a>\n    <!-- Form -->\n    <div class=\" navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto\">\n      <div class=\"form-group mb-0\">\n        <div class=\"input-group input-group-alternative\">\n          <button class=\"btn btn-icon btn-2 btn-primary\" (click)=\"navigateToCreatePost()\" type=\"button\">\n            <span class=\"btn-inner--icon\"><i class=\"ni ni-fat-add\"></i></span>\n            Creat A Story\n          </button>\n        </div>\n\n      </div>\n      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n      <div class=\"form-group mb-0\">\n        <div class=\"input-group input-group-alternative\">\n          <button class=\"btn btn-icon btn-2 btn-success\" (click)=\"navigateToCreateEpisode()\" type=\"button\">\n            <span class=\"btn-inner--icon\"><i class=\"ni ni-fat-add\"></i></span>\n            Add Episode\n          </button>\n        </div>\n\n      </div>\n    </div>\n    <!-- User -->\n    <ul class=\"navbar-nav align-items-center d-none d-md-flex\">\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\n        <a class=\"nav-link pr-0\" role=\"button\" ngbDropdownToggle>\n          <div class=\"media align-items-center\">\n            <span class=\"avatar avatar-sm rounded-circle\">\n              <img alt=\"Image placeholder\" [src]=\"user.profilePictureUrl\">\n            </span>\n            <div class=\"media-body ml-2 d-none d-lg-block\">\n              <span class=\"mb-0 text-sm  font-weight-bold\">{{user.firstName}} {{user.lastName}}</span>\n            </div>\n          </div>\n        </a>\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\n          <div class=\" dropdown-header noti-title\">\n            <h6 class=\"text-overflow m-0\">Welcome!</h6>\n          </div>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-single-02\"></i>\n            <span>My profile</span>\n          </a>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-settings-gear-65\"></i>\n            <span>Settings</span>\n          </a>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-calendar-grid-58\"></i>\n            <span>Activity</span>\n          </a>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-support-16\"></i>\n            <span>Support</span>\n          </a>\n          <div class=\"dropdown-divider\"></div>\n          <a href=\"#!\" class=\"dropdown-item\">\n            <i class=\"ni ni-user-run\"></i>\n            <span>Logout</span>\n          </a>\n        </div>\n      </li>\n    </ul>\n  </div>\n</nav>";
+    __webpack_exports__["default"] = "<nav class=\"navbar navbar-top navbar-expand-md navbar-dark\" id=\"navbar-main\">\n  <div class=\"container-fluid\">\n    <!-- Brand -->\n    <a class=\"h4 mb-0 text-white text-uppercase d-none d-lg-inline-block\" routerLinkActive=\"active\"\n      [routerLink]=\"['/dashboard']\">{{getTitle()}}</a>\n    <!-- Form -->\n    <div class=\" navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto\">\n      <div class=\"form-group mb-0\">\n        <div class=\"input-group input-group-alternative\">\n          <button class=\"btn btn-icon btn-2 btn-primary\" (click)=\"navigateToCreatePost()\" type=\"button\">\n            <span class=\"btn-inner--icon\"><i class=\"ni ni-fat-add\"></i></span>\n            Creat A Story\n          </button>\n        </div>\n\n      </div>\n      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n      <div class=\"form-group mb-0\">\n        <div class=\"input-group input-group-alternative\">\n          <button class=\"btn btn-icon btn-2 btn-success\" (click)=\"navigateToCreateEpisode()\" type=\"button\">\n            <span class=\"btn-inner--icon\"><i class=\"ni ni-fat-add\"></i></span>\n            Add Episode\n          </button>\n        </div>\n\n      </div>\n    </div>\n    <!-- User -->\n    <ul class=\"navbar-nav align-items-center d-none d-md-flex\">\n      <li class=\"nav-item\" ngbDropdown placement=\"bottom-right\">\n        <a class=\"nav-link pr-0\" role=\"button\" ngbDropdownToggle>\n          <div class=\"media align-items-center\">\n            <span class=\"avatar avatar-sm rounded-circle\">\n              <img alt=\"Image placeholder\" [src]=\"user.profilePictureUrl\">\n            </span>\n            <div class=\"media-body ml-2 d-none d-lg-block\">\n              <span class=\"mb-0 text-sm  font-weight-bold\">{{user.firstName}} {{user.lastName}}</span>\n            </div>\n          </div>\n        </a>\n        <div class=\"dropdown-menu-arrow dropdown-menu-right\" ngbDropdownMenu>\n          <div class=\" dropdown-header noti-title\">\n            <h6 class=\"text-overflow m-0\">Welcome!</h6>\n          </div>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-single-02\"></i>\n            <span>My profile</span>\n          </a>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-settings-gear-65\"></i>\n            <span>Settings</span>\n          </a>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-calendar-grid-58\"></i>\n            <span>Activity</span>\n          </a>\n          <a routerLinkActive=\"active\" [routerLink]=\"['/user-profile']\" class=\"dropdown-item\">\n            <i class=\"ni ni-support-16\"></i>\n            <span>Support</span>\n          </a>\n          <div class=\"dropdown-divider\"></div>\n          <a href=\"javascript:void(0)\" (click)=\"logout()\" class=\"dropdown-item\">\n            <i class=\"ni ni-user-run\"></i>\n            <span>Logout</span>\n          </a>\n        </div>\n      </li>\n    </ul>\n  </div>\n</nav>";
     /***/
   },
 
@@ -256,6 +256,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.autherApi = autherApi;
         this.router = router;
+        this.isLoading = false;
         var firebaseConfig = {
           apiKey: 'AIzaSyAL55WRYmO6qmtJFmNMsXaj0i8xNmS8vNg',
           authDomain: 'astoryauthentication.firebaseapp.com',
@@ -275,6 +276,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function userSignIn() {
           var _this = this;
 
+          this.isLoading = true;
           var provider = new firebase_app__WEBPACK_IMPORTED_MODULE_1__["auth"].GoogleAuthProvider(); // open google signin window
 
           firebase_app__WEBPACK_IMPORTED_MODULE_1__["auth"]().signInWithPopup(provider).then(function (result) {
@@ -298,6 +300,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               _this.saveSignInUserToLocalStore(users, _this.token, user.refreshToken);
             });
           })["catch"](function (error) {
+            _this.isLoading = false;
             var errorCode = error.code;
             console.log('errorCode', errorCode);
             var errorMessage = error.message;
@@ -314,6 +317,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           localStorage.setItem('user', JSON.stringify(user));
           localStorage.setItem('token', accessToken);
           localStorage.setItem('refreshToken', refreshToken);
+          this.isLoading = false;
           this.router.navigate(['/dashboard']);
         }
       }, {
@@ -1165,6 +1169,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "navigateToCreateEpisode",
         value: function navigateToCreateEpisode() {
           this.router.navigateByUrl('/add-episode');
+        }
+      }, {
+        key: "logout",
+        value: function logout() {
+          localStorage.clear();
+          this.router.navigate(['/login']);
         }
       }]);
 
