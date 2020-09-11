@@ -47,4 +47,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/add-episode');
   }
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
 }

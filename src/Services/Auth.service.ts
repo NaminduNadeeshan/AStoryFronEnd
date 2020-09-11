@@ -14,10 +14,11 @@ export class AuthService {
 
   private user: Observable<IUser>;
   private token: string;
+  public isLoading: boolean;
 
 // tslint:disable-next-line:no-shadowed-variable
 constructor(private autherApi: AutherApiService, private router: Router ) {
-
+ this.isLoading = false;
   const firebaseConfig = {
     apiKey: 'AIzaSyAL55WRYmO6qmtJFmNMsXaj0i8xNmS8vNg',
     authDomain: 'astoryauthentication.firebaseapp.com',
@@ -34,6 +35,7 @@ constructor(private autherApi: AutherApiService, private router: Router ) {
 }
 
 userSignIn() {
+  this.isLoading = true;
   const provider = new Firebase.auth.GoogleAuthProvider();
   // open google signin window
  Firebase.auth().signInWithPopup(provider).then(result => {
@@ -60,6 +62,7 @@ userSignIn() {
 
 
  }).catch(error => {
+   this.isLoading = false;
   const errorCode = error.code;
   console.log('errorCode', errorCode);
   const errorMessage = error.message;
@@ -72,11 +75,13 @@ userSignIn() {
 }
 
 saveSignInUserToLocalStore(user: IUser, accessToken: string, refreshToken: string) {
- localStorage.setItem('user', JSON.stringify(user));
+localStorage.setItem('user', JSON.stringify(user));
  localStorage.setItem('token', accessToken);
  localStorage.setItem('refreshToken', refreshToken);
+ this.isLoading = false;
  this.router.navigate(['/dashboard']);
 }
+
 
 isSignedInUser() {
   if (localStorage.getItem('user') !== null && localStorage.getItem('token') !== null && localStorage.getItem('refreshToken') ) {

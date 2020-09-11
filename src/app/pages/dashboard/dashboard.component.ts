@@ -35,28 +35,24 @@ export class DashboardComponent implements OnInit {
     this.data = this.datasets[0];
 
 
-    var chartOrders = document.getElementById('chart-orders');
+    const chartOrders = document.getElementById('chart-orders');
 
     parseOptions(Chart, chartOptions());
 
 
-    var ordersChart = new Chart(chartOrders, {
+    const ordersChart = new Chart(chartOrders, {
       type: 'bar',
       options: chartExample2.options,
       data: chartExample2.data
     });
 
-    var chartSales = document.getElementById('chart-sales');
+     const chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-			type: 'line',
+		type: 'line',
 			options: chartExample1.options,
 			data: chartExample1.data
     });
-
-    if (!this.authService.isSignedInUser()) {
-      this.router.navigate(['/login']);
-    }
   }
 
 
