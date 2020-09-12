@@ -65,22 +65,22 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="userForm">
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">First Name</label>
-                    <input type="text" id="input-firstname" class="form-control form-control-alternative"
-                      placeholder="First Name" value="lucky.jesse">
+                    <input #firstName [formControl]="userForm.controls['firstName']" type="text" id="input-firstname"
+                      class="form-control form-control-alternative" placeholder="First Name">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-email">Last Name</label>
-                    <input type="text" id="input-lastname" class="form-control form-control-alternative"
-                      placeholder="jesse@example.com">
+                    <input type="text" id="input-lastname" #lastName [formControl]="userForm.controls['lastName']"
+                      class="form-control form-control-alternative" placeholder="jesse@example.com">
                   </div>
                 </div>
               </div>
@@ -88,8 +88,8 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Email</label>
-                    <input type="email" id="input-email" class="form-control form-control-alternative"
-                      placeholder="First name" value="Lucky" disabled>
+                    <input #email [formControl]="userForm.controls['email']" type="email" id="input-email"
+                      class="form-control form-control-alternative" placeholder="First name" disabled>
                   </div>
                 </div>
               </div>
@@ -102,23 +102,26 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-address">Address</label>
-                    <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address"
-                      value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                    <input id="input-address" #address [formControl]="userForm.controls['address']"
+                      class="form-control form-control-alternative" placeholder="Home Address" type="text">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-address">Phone Number</label>
-                    <input id="input-phonenumber" class="form-control form-control-alternative" placeholder="077XXXXXX"
-                      value="07766666" type="text">
+                    <input id="input-phonenumber" #phoneNumber [formControl]="userForm.controls['phoneNumber']"
+                      class="form-control form-control-alternative" placeholder="077XXXXXX" type="text">
                   </div>
                 </div>
               </div>
             </div>
-            <button class="btn btn-icon btn-2 btn-primary" (click)="navigateToCreatePost()" type="button">
-              <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+            <button class="btn btn-icon btn-2 btn-primary" (click)="update()" type="button" [disabled]="isLoading">
+              <span class="btn-inner--icon" *ngIf="isLoading == false; else image"><i class="ni ni-fat-add"></i></span>
               Save
+              <ng-template #image><img src="../../../assets/button-loading.gif" />
+              </ng-template>
             </button>
+
           </form>
         </div>
         <hr class="my-4" />
@@ -158,7 +161,10 @@
               </div>
 
               <button class="btn btn-icon btn-2 btn-primary" (click)="navigateToCreatePost()" type="button">
-                <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+                <span class="btn-inner--icon" *ngIf="isLoading == false; else image"><i class="ni ni-fat-add">
+                    <ng-template class="btn-inner--icon" #image><img src="../../../assets/button-loading.gif">
+                    </ng-template>
+                  </i></span>
                 Save
               </button>
             </div>
@@ -168,3 +174,4 @@
     </div>
   </div>
 </div>
+<div id="dummy-target"></div>
