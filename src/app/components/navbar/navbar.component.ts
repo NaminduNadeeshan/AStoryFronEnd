@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/models/User';
+import { AuthService } from 'src/Services/Auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
   public router: Router;
   public user: IUser;
 
-  constructor(location: Location,  private element: ElementRef, router: Router) {
+  constructor(location: Location,  private element: ElementRef, router: Router, private authService: AuthService) {
     this.location = location;
     this.router = router;
   }
@@ -48,9 +49,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    console.log('hi');
-    localStorage.clear();
-    this.router.navigate(['/login']);
+   this.authService.logout();
   }
 
 }
