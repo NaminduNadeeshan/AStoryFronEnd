@@ -46,13 +46,13 @@ userSignIn() {
   result.user.getIdTokenResult().then(t =>  { this.token = t.token; });
 
   const userLocal: IUser = {
-    Address : '',
-    FirstName: user.displayName.split(' ')[0],
-    LastName: user.displayName.split(' ')[1],
-    PhoneNumber: user.phoneNumber,
-    ProfilePictureUrl: user.photoURL,
-    Email: user.email,
-    AutherId: undefined
+    address : '',
+    firstName: user.displayName.split(' ')[0],
+    lastName: user.displayName.split(' ')[1],
+    phoneNumber: user.phoneNumber,
+    profilePictureUrl: user.photoURL,
+    email: user.email,
+    autherId: undefined
 
   };
 

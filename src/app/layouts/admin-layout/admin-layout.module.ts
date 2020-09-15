@@ -27,6 +27,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     NgbModule,
     ClipboardModule,
     CKEditorModule,
+    CommonModule
   ],
   declarations: [
     DashboardComponent,

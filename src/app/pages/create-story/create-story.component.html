@@ -26,8 +26,6 @@
                   </div>
                   <div>
 
-                    {{this.storyForm.controls.storyName?.error?.valid}}
-
                   </div>
                 </div>
               </div>
@@ -78,8 +76,8 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <button type="submit" class="btn btn-success"><i class="ni ni-curved-next"
-                        [disabled]="storyForm.invalid"></i>
+                    <button type="submit" class="btn btn-success" [disabled]="storyForm.invalid"><i
+                        class="ni ni-curved-next"></i>
                       Next</button>
                   </div>
                 </div>
