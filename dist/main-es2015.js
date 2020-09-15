@@ -220,6 +220,10 @@ let AuthService = class AuthService {
             return false;
         }
     }
+    logout() {
+        localStorage.clear();
+        this.router.navigate(['/login']);
+    }
 };
 AuthService.ctorParameters = () => [
     { type: src_app_Api_auther_api_service__WEBPACK_IMPORTED_MODULE_4__["AutherApiService"] },
@@ -231,6 +235,114 @@ AuthService = __decorate([
     }),
     __metadata("design:paramtypes", [src_app_Api_auther_api_service__WEBPACK_IMPORTED_MODULE_4__["AutherApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
 ], AuthService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/Api/api-wrapper.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/Api/api-wrapper.service.ts ***!
+  \********************************************/
+/*! exports provided: ApiWrapperService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiWrapperService", function() { return ApiWrapperService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+
+
+let ApiWrapperService = class ApiWrapperService {
+    constructor(http, router) {
+        this.http = http;
+        this.router = router;
+    }
+    postWrapper(data, url, isBearer = true) {
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            })
+        };
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiBaseUrl}/${url}`, data, isBearer && httpOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])((response) => {
+            return response;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(errors => {
+            if (errors.status === 401) {
+                this.getAccesstokenByRefreshToken('post', url, undefined, data);
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(errors);
+            }
+        }));
+    }
+    getWrapper(url, params) {
+        let responseData;
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }),
+            params: params
+        };
+        this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiBaseUrl}/${url}`, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(response => { responseData = response; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(errors => {
+            if (errors.status === 401) {
+                this.getAccesstokenByRefreshToken('get', url, params);
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(errors);
+            }
+        }));
+        return responseData;
+    }
+    getAccesstokenByRefreshToken(method, url, params, bodyData) {
+        const formData = new FormData();
+        formData.append('grant_type', 'refresh_token');
+        formData.append('refresh_token', localStorage.getItem('refreshToken'));
+        this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiBaseUrl}/api/authentication/token`, formData).subscribe((token) => {
+            localStorage.setItem('token', token.id_token);
+            localStorage.setItem('refreshToken', token.refresh_token);
+            if (method === 'get') {
+                this.getWrapper(url, params).subscribe();
+            }
+            else if (method === 'post') {
+                this.postWrapper(bodyData, url).subscribe();
+            }
+        }, (errors) => {
+            this.logout();
+        });
+    }
+    logout() {
+        localStorage.clear();
+        this.router.navigate(['/login']);
+    }
+};
+ApiWrapperService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+];
+ApiWrapperService = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+        providedIn: 'root'
+    }),
+    __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+], ApiWrapperService);
 
 
 
@@ -249,6 +361,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _api_wrapper_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api-wrapper.service */ "./src/app/Api/api-wrapper.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -264,22 +377,28 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let AutherApiService = class AutherApiService {
-    constructor(_http) {
+    constructor(_http, wrapperHttp) {
         this._http = _http;
+        this.wrapperHttp = wrapperHttp;
     }
     addUserToDataBase(user) {
         return this._http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/auther/AddAuther`, user);
     }
+    editAuther(user) {
+        return this.wrapperHttp.postWrapper(user, 'api/auther/EditAuther');
+    }
 };
 AutherApiService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
+    { type: _api_wrapper_service__WEBPACK_IMPORTED_MODULE_3__["ApiWrapperService"] }
 ];
 AutherApiService = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _api_wrapper_service__WEBPACK_IMPORTED_MODULE_3__["ApiWrapperService"]])
 ], AutherApiService);
 
 
@@ -694,6 +813,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../sidebar/sidebar.component */ "./src/app/components/sidebar/sidebar.component.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/Services/Auth.service */ "./src/Services/Auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -710,9 +830,11 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let NavbarComponent = class NavbarComponent {
-    constructor(location, element, router) {
+    constructor(location, element, router, authService) {
         this.element = element;
+        this.authService = authService;
         this.location = location;
         this.router = router;
     }
@@ -739,15 +861,14 @@ let NavbarComponent = class NavbarComponent {
         this.router.navigateByUrl('/add-episode');
     }
     logout() {
-        console.log('hi');
-        localStorage.clear();
-        this.router.navigate(['/login']);
+        this.authService.logout();
     }
 };
 NavbarComponent.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"] }
 ];
 NavbarComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -755,7 +876,7 @@ NavbarComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./navbar.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/navbar/navbar.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./navbar.component.scss */ "./src/app/components/navbar/navbar.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    __metadata("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"]])
 ], NavbarComponent);
 
 
@@ -788,6 +909,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidebarComponent", function() { return SidebarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/Services/Auth.service */ "./src/Services/Auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -802,6 +924,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 };
 
 
+
 const ROUTES = [
     { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '' },
     { path: '/icons', title: 'Stats', icon: 'ni-chart-bar-32 text-blue', class: '' },
@@ -810,8 +933,9 @@ const ROUTES = [
     { path: '/tables', title: 'My Stories', icon: 'ni-bullet-list-67 text-red', class: '' },
 ];
 let SidebarComponent = class SidebarComponent {
-    constructor(router) {
+    constructor(router, authService) {
         this.router = router;
+        this.authService = authService;
         this.isCollapsed = true;
     }
     ngOnInit() {
@@ -822,13 +946,12 @@ let SidebarComponent = class SidebarComponent {
         this.user = JSON.parse(localStorage.getItem('user'));
     }
     logout() {
-        console.log('hi');
-        localStorage.clear();
-        this.router.navigate(['/login']);
+        this.authService.logout();
     }
 };
 SidebarComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
+    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"] }
 ];
 SidebarComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -836,7 +959,7 @@ SidebarComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./sidebar.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/sidebar/sidebar.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./sidebar.component.scss */ "./src/app/components/sidebar/sidebar.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
 ], SidebarComponent);
 
 

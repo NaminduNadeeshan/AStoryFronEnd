@@ -15,15 +15,19 @@
           <h3 class="mb-0">Create A Story</h3>
         </div>
         <div class="card-body">
-          <form>
-
+          <form [formGroup]="storyForm" (ngSubmit)="addStory()">
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Story Name</label>
-                    <input type="text" id="input-username" class="form-control form-control-alternative"
-                      placeholder="Story Name" value="">
+                    <input type="text" id="input-username" [formControl]="storyForm.controls['storyName']"
+                      class="form-control" placeholder="Story Name" value="" required>
+                  </div>
+                  <div>
+
+                    {{this.storyForm.controls.storyName?.error?.valid}}
+
                   </div>
                 </div>
               </div>
@@ -31,8 +35,9 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Image Url</label>
-                    <input type="select" id="input-username" class="form-control form-control-alternative"
-                      placeholder="Story Name" value="">
+                    <input type="select" #coverImageUrl [formControl]="storyForm.controls['coverImageUrl']"
+                      id="input-username" class="form-control form-control-alternative" placeholder="Story Name"
+                      value="" required>
                   </div>
                 </div>
               </div>
@@ -40,15 +45,42 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name">Story Discription</label>
-                    <app-ck-editor></app-ck-editor>
+                    <ckeditor [config]="{
+                      toolbar: {
+                        items: [
+                          'heading',
+                          '|',
+                          'bold',
+                          'italic',
+                          '|',
+                          'bulletedList',
+                          'numberedList',
+                          '|',
+                          'insertTable',
+                          '|',
+                          'undo',
+                          'redo'
+                        ]
+                      },
+                      table: {
+                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+                      }
+                     ,
+                      language: 'en'
+                    }" [editor]="Editor" (change)="change($event)" required>
+                    </ckeditor>
+                    <!-- <app-ck-editor [item]="storyForm.controls['storyShortDescription']" #storyShortDescription
+                      [formControl]="storyForm.controls['storyShortDescription']">
+                    </app-ck-editor> -->
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <button type="button" (click)="goToEpisode()" class="btn btn-success"><i
-                        class="ni ni-curved-next"></i> Next</button>
+                    <button type="submit" class="btn btn-success"><i class="ni ni-curved-next"
+                        [disabled]="storyForm.invalid"></i>
+                      Next</button>
                   </div>
                 </div>
 
