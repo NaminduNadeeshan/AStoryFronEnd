@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
 import * as ClassicEditor from 'node_modules/@ckeditor/ckeditor5-build-classic';
 
 @Component({
@@ -8,12 +9,16 @@ import * as ClassicEditor from 'node_modules/@ckeditor/ckeditor5-build-classic';
 })
 export class CkEditorComponent implements OnInit {
 
+  @Input() onChange: ({editor}: ChangeEvent) => void;
   public Editor = ClassicEditor;
-  @Input() item: any;
+  public content: string;
   constructor() { }
 
   ngOnInit() {
-    console.log(this.item.value['storyShortDescription']);
+  }
+
+  onChangeInject(event: ChangeEvent) {
+    this.onChange(event);
   }
 
 }

@@ -12,10 +12,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loading: boolean;
-
   constructor(private auth: AuthService, public router: Router) {
     this.auth = auth;
+    this.auth.isLoading = false;
   }
 
   ngOnInit() {
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    this.loading = this.auth.isLoading;
    this.auth.userSignIn();
   }
 }

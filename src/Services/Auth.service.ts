@@ -41,8 +41,7 @@ userSignIn() {
  Firebase.auth().signInWithPopup(provider).then(result => {
   // The signed-in user info.
   const user = result.user;
-  console.log('user', result);
-
+  this.isLoading = true;
   result.user.getIdTokenResult().then(t =>  { this.token = t.token; });
 
   const userLocal: IUser = {
@@ -57,6 +56,7 @@ userSignIn() {
   };
 
  this.autherApi.addUserToDataBase(userLocal).subscribe((users: any) => {
+  this.isLoading = true;
    this.saveSignInUserToLocalStore(users, this.token, user.refreshToken);
  });
 

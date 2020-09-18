@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/Services/Auth.service';
@@ -7,6 +7,8 @@ import { IStory } from 'src/app/models/story';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/User';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/dist/types/operators';
 
 declare const google: any;
 
@@ -22,12 +24,15 @@ export class CreateStoryComponent implements OnInit {
   public storyForm: FormGroup;
   public user: IUser;
   public storyDescription: string;
-  public validationStatus: any;
+  public isSubmited: boolean;
+  public isSubmitting: boolean;
 
-  constructor(router: Router, private authService: AuthService, private storyApi: StoryApiService, 
+  constructor(router: Router, private authService: AuthService, private storyApi: StoryApiService,
     private formBuilder: FormBuilder) {
 
     this.router = router;
+    this.isSubmited = false;
+    this.isSubmitting = false;
   }
 
   ngOnInit() {
@@ -44,8 +49,8 @@ export class CreateStoryComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
-  goToEpisode(storyId: number) {
-    this.router.navigateByUrl(`/add-episode/${storyId}`);
+  goToEpisode(storyId: number, storyName: string) {
+    this.router.navigateByUrl(`/add-episode/${storyId}/${storyName}`);
   }
 
   navigateToCreateEpisode() {
@@ -53,9 +58,9 @@ export class CreateStoryComponent implements OnInit {
   }
 
   addStory() {
-  this.validationStatus = this.storyForm.controls;
-   console.log('error', this.validationStatus.storyName.error?.required);
+    this.isSubmited = true;
     if (this.storyForm.valid) {
+      this.isSubmitting = true;
       const user = JSON.parse(localStorage.getItem('user'));
 
       const story: IStory = {
@@ -66,16 +71,17 @@ export class CreateStoryComponent implements OnInit {
         storyShortDescription: this.storyForm.value['storyShortDescription'],
         storyId: undefined
       };
-     this.storyApi.addStory(story).subscribe(response => {
-       this.goToEpisode(response.storyId);
-     });
+      this.storyApi.addStory(story)
+        .subscribe(response => {
+          this.goToEpisode(response.storyId, response.storyName);
+        }, err => {console.log('error', err); this.isSubmitting = false; });
+      this.isSubmited = false;
     }
   }
 
-change({editor}: ChangeEvent) {
-  const EditorData = editor.getData();
-  console.log('ammata siri', EditorData);
-  this.storyForm.get('storyShortDescription').setValue(EditorData);
-}
+  change({ editor }: ChangeEvent) {
+    const EditorData = editor.getData();
+    this.storyForm.get('storyShortDescription').setValue(EditorData);
+  }
 
 }

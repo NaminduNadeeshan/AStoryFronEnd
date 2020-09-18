@@ -17,7 +17,7 @@ return this._http.post<IUser>(`${environment.apiBaseUrl}/api/auther/AddAuther`, 
 }
 
 editAuther(user: IUser): any {
-  return this.wrapperHttp.postWrapper<IUser>(user, 'api/auther/EditAuther');
+ return this._http.post<IUser>(`${environment.apiBaseUrl}/api/auther/EditAuther`, user);
 }
 
 }

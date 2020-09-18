@@ -38,7 +38,6 @@ export class UserProfileComponent implements OnInit {
       this.router.navigate(['/login']);
     }
     this.userForm.patchValue(this.user);
-    console.log('check checj', this.user);
   }
 
   update() {
