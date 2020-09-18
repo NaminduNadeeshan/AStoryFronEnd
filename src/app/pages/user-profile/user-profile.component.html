@@ -118,7 +118,7 @@
             <button class="btn btn-icon btn-2 btn-primary" (click)="update()" type="button" [disabled]="isLoading">
               <span class="btn-inner--icon" *ngIf="isLoading == false; else image"><i class="ni ni-fat-add"></i></span>
               Save
-              <ng-template #image><img src="../../../assets/button-loading.gif" />
+              <ng-template #image><img src="../../../assets/img/button-loading.gif" />
               </ng-template>
             </button>
 
@@ -160,9 +160,9 @@
                 </div>
               </div>
 
-              <button class="btn btn-icon btn-2 btn-primary" type="button">
+              <button class="btn btn-icon btn-2 btn-primary" type="button" [disabled]='isLoading'>
                 <span class="btn-inner--icon" *ngIf="isLoading == false; else image"><i class="ni ni-fat-add">
-                    <ng-template class="btn-inner--icon" #image><img src="../../../assets/button-loading.gif">
+                    <ng-template class="btn-inner--icon" #image><img src="../../../assets/img/button-loading.gif">
                     </ng-template>
                   </i></span>
                 Save
