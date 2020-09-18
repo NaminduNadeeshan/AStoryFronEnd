@@ -9,6 +9,7 @@ import { IUser } from 'src/app/models/User';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/dist/types/operators';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 declare const google: any;
 
@@ -47,6 +48,8 @@ export class CreateStoryComponent implements OnInit {
       autherId: ['']
     });
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.storyApi.
+    getStoriesByAuther(JSON.parse(localStorage.getItem('user')).autherId, 1, 2).subscribe(response => console.log(response));
   }
 
   goToEpisode(storyId: number, storyName: string) {
@@ -73,6 +76,11 @@ export class CreateStoryComponent implements OnInit {
       };
       this.storyApi.addStory(story)
         .subscribe(response => {
+          Swal.fire(
+            'Successfuly added story. Add episodes from here.',
+            '',
+            'success'
+          );
           this.goToEpisode(response.storyId, response.storyName);
         }, err => {console.log('error', err); this.isSubmitting = false; });
       this.isSubmited = false;
