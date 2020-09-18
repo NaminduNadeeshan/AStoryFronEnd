@@ -13,6 +13,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'create-story',   component: CreateStoryComponent},
-    { path: 'add-episode/:id',  component: CreateEpisodesComponent},
+    { path: 'add-episode/:id/:storyName',  component: CreateEpisodesComponent},
     { path: 'add-episode',  component: CreateEpisodesComponent}
 ];

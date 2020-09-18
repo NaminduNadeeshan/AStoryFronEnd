@@ -22,7 +22,12 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Story Name</label>
                     <input type="text" id="input-username" [formControl]="storyForm.controls['storyName']"
+                      [ngClass]="{'is-invalid': isSubmited && storyForm.controls.coverImageUrl.errors?.required}"
                       class="form-control" placeholder="Story Name" value="" required>
+                    <div style="color: red;" *ngIf="isSubmited && storyForm.controls.storyName.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                   <div>
 
@@ -34,8 +39,13 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Image Url</label>
                     <input type="select" #coverImageUrl [formControl]="storyForm.controls['coverImageUrl']"
-                      id="input-username" class="form-control form-control-alternative" placeholder="Story Name"
-                      value="" required>
+                      id="input-username" class="form-control" placeholder="Story Name" value=""
+                      [ngClass]="{'is-invalid': isSubmited && storyForm.controls.coverImageUrl.errors?.required}"
+                      required>
+                    <div style="color: red;" *ngIf="isSubmited && storyForm.controls.coverImageUrl.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -67,18 +77,24 @@
                       language: 'en'
                     }" [editor]="Editor" (change)="change($event)" required>
                     </ckeditor>
-                    <!-- <app-ck-editor [item]="storyForm.controls['storyShortDescription']" #storyShortDescription
-                      [formControl]="storyForm.controls['storyShortDescription']">
-                    </app-ck-editor> -->
+                    <div style="color: red;"
+                      *ngIf="isSubmited && storyForm.controls.storyShortDescription.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <button type="submit" class="btn btn-success" [disabled]="storyForm.invalid"><i
-                        class="ni ni-curved-next"></i>
-                      Next</button>
+                    <button type="submit" class="btn btn-success" [disabled]="isSubmitting">
+                      <i *ngIf="isSubmitting; else next"> <img src="../../../assets/img/buttonloading.gif">
+                      </i>
+                      <ng-template #next>
+                        <i class="ni ni-curved-next"></i>Next
+                      </ng-template>
+                    </button>
                   </div>
                 </div>
 

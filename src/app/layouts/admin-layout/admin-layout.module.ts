@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
@@ -16,6 +16,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CkEditorComponent } from 'src/app/components/ck-editor/ck-editor.component';
 import { CreateEpisodesComponent } from 'src/app/pages/create-episodes/create-episodes.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { TokenInterceptor } from 'src/app/Api/token.interceptor';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     HeaderChartComponent,
     CkEditorComponent,
     CreateEpisodesComponent
-  ]
+  ],
 })
 
 export class AdminLayoutModule {}
