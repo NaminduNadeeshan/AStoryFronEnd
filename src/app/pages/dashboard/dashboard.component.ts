@@ -7,9 +7,10 @@ import {
   parseOptions,
   chartExample1,
   chartExample2
-} from "../../variables/charts";
-import { AuthService } from 'src/Services/Auth.service';
-import { RouterEvent, Router } from '@angular/router';
+} from '../../variables/charts';
+import { DashboardApiService } from 'src/app/Api/dashboard-api.service';
+import { IStory, IStoryByAuther } from 'src/app/models/story';
+import {  IUserResponse } from 'src/app/models/User';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,13 +22,12 @@ export class DashboardComponent implements OnInit {
   public datasets: any;
   public data: any;
   public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  public clicked = true;
+  public clicked1 = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private dashboardApi: DashboardApiService) { }
 
   ngOnInit() {
-
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
       [0, 20, 5, 25, 10, 30, 15, 40, 40]
@@ -46,18 +46,14 @@ export class DashboardComponent implements OnInit {
       data: chartExample2.data
     });
 
-     const chartSales = document.getElementById('chart-sales');
+    const chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-		  type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
     });
   }
-
-
-
-
 
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;

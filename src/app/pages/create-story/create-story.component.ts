@@ -1,17 +1,13 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/Services/Auth.service';
 import { StoryApiService } from 'src/app/Api/story-api.service';
-import { IStory } from 'src/app/models/story';
+import { IStory, IStoryByAuther } from 'src/app/models/story';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/User';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/dist/types/operators';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
-declare const google: any;
 
 @Component({
   selector: 'app-maps',
@@ -27,6 +23,7 @@ export class CreateStoryComponent implements OnInit {
   public storyDescription: string;
   public isSubmited: boolean;
   public isSubmitting: boolean;
+  public stories: IStoryByAuther;
 
   constructor(router: Router, private authService: AuthService, private storyApi: StoryApiService,
     private formBuilder: FormBuilder) {
@@ -48,8 +45,6 @@ export class CreateStoryComponent implements OnInit {
       autherId: ['']
     });
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.storyApi.
-    getStoriesByAuther(JSON.parse(localStorage.getItem('user')).autherId, 1, 2).subscribe(response => console.log(response));
   }
 
   goToEpisode(storyId: number, storyName: string) {
@@ -69,7 +64,6 @@ export class CreateStoryComponent implements OnInit {
       const story: IStory = {
         autherId: user.autherId,
         coverImageUrl: this.storyForm.value['coverImageUrl'],
-        isActive: this.storyForm.value['isActive'],
         storyName: this.storyForm.value['storyName'],
         storyShortDescription: this.storyForm.value['storyShortDescription'],
         storyId: undefined

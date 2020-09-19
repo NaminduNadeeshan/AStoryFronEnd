@@ -236,8 +236,8 @@ let AuthService = class AuthService {
             result.user.getIdTokenResult().then(t => { this.token = t.token; });
             const userLocal = {
                 address: '',
-                firstName: user.displayName.split(' ')[0],
-                lastName: user.displayName.split(' ')[1],
+                firstName: user.displayName.split(' ')[0].trim(),
+                lastName: user.displayName.split(' ')[1].trim(),
                 phoneNumber: user.phoneNumber,
                 profilePictureUrl: user.photoURL,
                 email: user.email,

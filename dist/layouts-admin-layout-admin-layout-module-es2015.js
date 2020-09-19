@@ -429,7 +429,7 @@ function dropRight(array, n, guard) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\n  <div class=\"container-fluid\">\n    <div class=\"header-body\">\n      <!-- Card stats -->\n      <!-- <app-header-chart></app-header-chart> -->\n    </div>\n  </div>\n</div>\n<!-- Page content -->\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"card shadow\">\n        <div class=\"card-header bg-transparent\">\n          <h3 class=\"mb-0\">Create A Episode</h3>\n        </div>\n        <div class=\"card-body\">\n          <form>\n            <div class=\"pl-lg-4\">\n              <div *ngIf=\"storyId != undefined; else notSelected\" class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Story Name</label>\n                    &nbsp; &nbsp;<label class=\"form-control-label\" for=\"input-username\">{{storyName}}</label>\n                  </div>\n                </div>\n              </div>\n              <ng-template #notSelected>\n                <div class=\"row\">\n                  <div class=\"col-lg-12\">\n                    <div class=\"form-group\">\n                      <label class=\"form-control-label\">Select Story</label>\n                      <select class=\"form-control form-control-alternative\" value=\"\">\n                        <option>සුලග නුබ සහ මම</option>\n                        <option>අනන්තය</option>\n                      </select>\n                    </div>\n                  </div>\n                </div>\n              </ng-template>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Episode Name</label>\n                    <input type=\"select\" id=\"input-username\" class=\"form-control form-control-alternative\"\n                      placeholder=\"Story Name\" value=\"\">\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Image Url</label>\n                    <input type=\"select\" id=\"input-username\" class=\"form-control form-control-alternative\"\n                      placeholder=\"Story Name\" value=\"\">\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-first-name\">Episode Summery</label>\n                    <app-ck-editor></app-ck-editor>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\">Episode Content</label>\n                    <app-ck-editor></app-ck-editor>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <button type=\"button\" (click)=\"addEpiosode()\" class=\"btn btn-success\"><i class=\"ni ni-fat-add\"></i>\n                      Save</button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <hr class=\"my-4\" />\n\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\n  <div class=\"container-fluid\">\n    <div class=\"header-body\">\n      <!-- Card stats -->\n      <!-- <app-header-chart></app-header-chart> -->\n    </div>\n  </div>\n</div>\n<!-- Page content -->\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"card shadow\">\n        <div class=\"card-header bg-transparent\">\n          <h3 class=\"mb-0\">Create A Episode</h3>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"episodeForm\" (ngSubmit)=\"addEpiosode()\">\n            <div class=\"pl-lg-4\">\n              <div *ngIf=\"storyId != undefined; else notSelected\" class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Story Name</label>\n                    &nbsp; &nbsp;<label class=\"form-control-label\" for=\"input-username\">{{storyName}}</label>\n                  </div>\n                </div>\n              </div>\n              <ng-template #notSelected>\n                <div class=\"row\">\n                  <div class=\"col-lg-12\">\n                    <div class=\"form-group\">\n                      <label class=\"form-control-label\">Select Story</label>\n                      <select [ngClass]=\"{'is-invalid': isSubmitted && episodeForm.controls.storyId.errors?.required}\"\n                        (change)=\"selectStory($event)\" [formControl]=\"episodeForm.controls['storyId']\"\n                        class=\"form-control \" value=\"\" required>\n                        <option class=\"form-control form-control-alternative\" *ngFor=\"let story of storiesByAuther\"\n                          value=\"{{story.storyId}}\">{{story.storyName}}\n                        </option>\n                      </select>\n                      <div style=\"color: red;\" *ngIf=\"isSubmitted && episodeForm.controls.storyId.errors?.required\">\n                        This\n                        field is required.\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </ng-template>\n              {{isSubmiteds}}\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Episode Name</label>\n                    <input type=\"text\" id=\"input-username\" class=\"form-control\" placeholder=\"Story Name\" value=\"\"\n                      [formControl]=\"episodeForm.controls['episodeName']\"\n                      [ngClass]=\"{'is-invalid':  isSubmitted && episodeForm.controls.episodeName.errors?.required}\"\n                      required>\n                    <div style=\" color: red;\" *ngIf=\"isSubmitted && episodeForm.controls.episodeName.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Image Url</label>\n                    <input type=\"select\" id=\"input-username\" class=\"form-control\" placeholder=\"Story Name\" value=\"\"\n                      [ngClass]=\"{'is-invalid': isSubmitted && episodeForm.controls.episodeCoverImageUrl.errors?.required}\"\n                      [formControl]=\"episodeForm.controls['episodeCoverImageUrl']\" required>\n                    <div style=\" color: red;\" *ngIf=\" isSubmitted && episodeForm.controls.episodeName.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-first-name\">Episode Summary</label>\n                    <ckeditor [config]=\"{\n                      toolbar: {\n                        items: [\n                          'heading',\n                          '|',\n                          'bold',\n                          'italic',\n                          '|',\n                          'bulletedList',\n                          'numberedList',\n                          '|',\n                          'insertTable',\n                          '|',\n                          'undo',\n                          'redo'\n                        ]\n                      },\n                      table: {\n                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]\n                      }\n                     ,\n                      language: 'en'\n                    }\" [editor]=\"Editor\" (change)=\"onCHangeEpisodeShortDes($event)\" required>\n                    </ckeditor>\n                    <div style=\" color: red;\"\n                      *ngIf=\"isSubmitted && episodeForm.controls.episodeShortDescription.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\">Episode Content</label>\n                    <ckeditor [config]=\"{\n                      toolbar: {\n                        items: [\n                          'heading',\n                          '|',\n                          'bold',\n                          'italic',\n                          '|',\n                          'bulletedList',\n                          'numberedList',\n                          '|',\n                          'insertTable',\n                          '|',\n                          'undo',\n                          'redo'\n                        ]\n                      },\n                      table: {\n                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]\n                      }\n                     ,\n                      language: 'en'\n                    }\" [editor]=\"Editor1\" (change)=\"onChangeEpisodeContent($event)\" required>\n                    </ckeditor>\n                    <div style=\"color: red;\"\n                      *ngIf=\"isSubmitted && episodeForm.controls.episodeContent.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"isSubmitting\">\n                      <i *ngIf=\"isSubmitting; else next\"> <img src=\"../../../assets/img/button-loading.gif\">\n                      </i>\n                      <ng-template #next>\n                        <i class=\"ni ni-fat-add\"></i>\n                      </ng-template>\n                      Save\n                    </button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <hr class=\"my-4\" />\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>");
 
 /***/ }),
 
@@ -1186,7 +1186,7 @@ function conforms(source) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2NyZWF0ZS1lcGlzb2Rlcy9jcmVhdGUtZXBpc29kZXMuY29tcG9uZW50LnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (":host ::ng-deep .ck-editor__editable_inline {\n  min-height: 350px;\n  max-height: 350px;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvY3JlYXRlLWVwaXNvZGVzL2NyZWF0ZS1lcGlzb2Rlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGlCQUFpQjtFQUNqQixpQkFBaUI7QUFDckIiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9jcmVhdGUtZXBpc29kZXMvY3JlYXRlLWVwaXNvZGVzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3QgOjpuZy1kZWVwIC5jay1lZGl0b3JfX2VkaXRhYmxlX2lubGluZSB7XG4gICAgbWluLWhlaWdodDogMzUwcHg7XG4gICAgbWF4LWhlaWdodDogMzUwcHg7XG59Il19 */");
 
 /***/ }),
 
@@ -2194,6 +2194,19 @@ function baseHasIn(object, key) {
 
 /* harmony default export */ __webpack_exports__["default"] = (baseHasIn);
 
+
+/***/ }),
+
+/***/ "1f2v":
+/*!*******************************************************************!*\
+  !*** ./src/app/components/story-table/story-table.component.scss ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".table-size {\n  max-height: 550px !important;\n  overflow: auto !important;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zdG9yeS10YWJsZS9zdG9yeS10YWJsZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLDRCQUE0QjtFQUM1Qix5QkFBeUI7QUFDN0IiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3N0b3J5LXRhYmxlL3N0b3J5LXRhYmxlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRhYmxlLXNpemUge1xuICAgIG1heC1oZWlnaHQ6IDU1MHB4ICFpbXBvcnRhbnQ7XG4gICAgb3ZlcmZsb3c6IGF1dG8gIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -10115,7 +10128,7 @@ Object.defineProperty(exports.prototype, 'chartInstance', {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\"\n  style=\"min-height: 600px; background-image: url({{user.profilePictureUrl}}); background-size: cover; background-position: center top;\">\n  <!-- Mask -->\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\n  <!-- Header container -->\n  <div class=\"container-fluid d-flex align-items-center\">\n    <div class=\"row\">\n      <div class=\"col-lg-7 col-md-10\">\n        <h1 class=\"display-2 text-white\">Hello {{user.firstName}} {{user.lastName}}</h1>\n        <p class=\"text-white mt-0 mb-5\">ඔබගේ ජංගම දුරකථන අංක සහ බැංකු තොරතුරු යාවත්කාලීන නොකලේනම් එය යාවත්කාලීන කිරීමට\n          කාරුනිකවන්න!</p>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col-xl-4 order-xl-2 mb-5 mb-xl-0\">\n      <div class=\"card card-profile shadow\">\n        <div class=\"row justify-content-center\">\n          <div class=\"col-lg-3 order-lg-2\">\n            <div class=\"card-profile-image\">\n              <a href=\"javascript:void(0)\">\n                <img [src]=\"user.profilePictureUrl\" class=\"rounded-circle\">\n              </a>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4\">\n        </div>\n        <div class=\"card-body pt-0 pt-md-4\">\n          <div class=\"row\">\n            <div class=\"col\">\n              <div class=\"card-profile-stats d-flex justify-content-center mt-md-5\">\n                <div>\n                  <span class=\"heading\">22</span>\n                  <span class=\"description\">Stories</span>\n                </div>\n                <div>\n                  <span class=\"heading\"></span>\n                  <span class=\"description\"></span>\n                </div>\n                <div>\n                  <span class=\"heading\">89</span>\n                  <span class=\"description\">Episodes</span>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"text-center\">\n            <h3>\n              {{user.firstName}} {{user.lastName}}<span class=\"font-weight-light\"></span>\n            </h3>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-xl-8 order-xl-1\">\n      <div class=\"card bg-secondary shadow\">\n        <div class=\"card-header bg-white border-0\">\n          <div class=\"row align-items-center\">\n            <div class=\"col-8\">\n              <h3 class=\"mb-0\">My account</h3>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"userForm\">\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">First Name</label>\n                    <input #firstName [formControl]=\"userForm.controls['firstName']\" type=\"text\" id=\"input-firstname\"\n                      class=\"form-control form-control-alternative\" placeholder=\"First Name\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-email\">Last Name</label>\n                    <input type=\"text\" id=\"input-lastname\" #lastName [formControl]=\"userForm.controls['lastName']\"\n                      class=\"form-control form-control-alternative\" placeholder=\"jesse@example.com\">\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-first-name\">Email</label>\n                    <input #email [formControl]=\"userForm.controls['email']\" type=\"email\" id=\"input-email\"\n                      class=\"form-control form-control-alternative\" placeholder=\"First name\" disabled>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <hr class=\"my-4\" />\n            <!-- Address -->\n            <h6 class=\"heading-small text-muted mb-4\">Contact information</h6>\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-address\">Address</label>\n                    <input id=\"input-address\" #address [formControl]=\"userForm.controls['address']\"\n                      class=\"form-control form-control-alternative\" placeholder=\"Home Address\" type=\"text\">\n                  </div>\n                </div>\n                <div class=\"col-md-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-address\">Phone Number</label>\n                    <input id=\"input-phonenumber\" #phoneNumber [formControl]=\"userForm.controls['phoneNumber']\"\n                      class=\"form-control form-control-alternative\" placeholder=\"077XXXXXX\" type=\"text\">\n                  </div>\n                </div>\n              </div>\n            </div>\n            <button class=\"btn btn-icon btn-2 btn-primary\" (click)=\"update()\" type=\"button\" [disabled]=\"isLoading\">\n              <span class=\"btn-inner--icon\" *ngIf=\"isLoading == false; else image\"><i class=\"ni ni-fat-add\"></i></span>\n              Save\n              <ng-template #image><img src=\"../../../assets/button-loading.gif\" />\n              </ng-template>\n            </button>\n\n          </form>\n        </div>\n        <hr class=\"my-4\" />\n        <div class=\"card-body\">\n          <form>\n            <h6 class=\"heading-small text-muted mb-4\">Bank Details</h6>\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Bank Name</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Account Holder Name</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Account Number</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Branch</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n              </div>\n\n              <button class=\"btn btn-icon btn-2 btn-primary\" type=\"button\">\n                <span class=\"btn-inner--icon\" *ngIf=\"isLoading == false; else image\"><i class=\"ni ni-fat-add\">\n                    <ng-template class=\"btn-inner--icon\" #image><img src=\"../../../assets/button-loading.gif\">\n                    </ng-template>\n                  </i></span>\n                Save\n              </button>\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div id=\"dummy-target\"></div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header pb-8 pt-5 pt-lg-8 d-flex align-items-center\"\n  style=\"min-height: 600px; background-image: url({{user.profilePictureUrl}}); background-size: cover; background-position: center top;\">\n  <!-- Mask -->\n  <span class=\"mask bg-gradient-danger opacity-8\"></span>\n  <!-- Header container -->\n  <div class=\"container-fluid d-flex align-items-center\">\n    <div class=\"row\">\n      <div class=\"col-lg-7 col-md-10\">\n        <h1 class=\"display-2 text-white\">Hello {{user.firstName}} {{user.lastName}}</h1>\n        <p class=\"text-white mt-0 mb-5\">ඔබගේ ජංගම දුරකථන අංක සහ බැංකු තොරතුරු යාවත්කාලීන නොකලේනම් එය යාවත්කාලීන කිරීමට\n          කාරුනිකවන්න!</p>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col-xl-4 order-xl-2 mb-5 mb-xl-0\">\n      <div class=\"card card-profile shadow\">\n        <div class=\"row justify-content-center\">\n          <div class=\"col-lg-3 order-lg-2\">\n            <div class=\"card-profile-image\">\n              <a href=\"javascript:void(0)\">\n                <img [src]=\"user.profilePictureUrl\" class=\"rounded-circle\">\n              </a>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4\">\n        </div>\n        <div class=\"card-body pt-0 pt-md-4\">\n          <div class=\"row\">\n            <div class=\"col\">\n              <div class=\"card-profile-stats d-flex justify-content-center mt-md-5\">\n                <div>\n                  <span class=\"heading\">22</span>\n                  <span class=\"description\">Stories</span>\n                </div>\n                <div>\n                  <span class=\"heading\"></span>\n                  <span class=\"description\"></span>\n                </div>\n                <div>\n                  <span class=\"heading\">89</span>\n                  <span class=\"description\">Episodes</span>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"text-center\">\n            <h3>\n              {{user.firstName}} {{user.lastName}}<span class=\"font-weight-light\"></span>\n            </h3>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-xl-8 order-xl-1\">\n      <div class=\"card bg-secondary shadow\">\n        <div class=\"card-header bg-white border-0\">\n          <div class=\"row align-items-center\">\n            <div class=\"col-8\">\n              <h3 class=\"mb-0\">My account</h3>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"userForm\">\n            <h6 class=\"heading-small text-muted mb-4\">User information</h6>\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">First Name</label>\n                    <input #firstName [formControl]=\"userForm.controls['firstName']\" type=\"text\" id=\"input-firstname\"\n                      class=\"form-control form-control-alternative\" placeholder=\"First Name\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-email\">Last Name</label>\n                    <input type=\"text\" id=\"input-lastname\" #lastName [formControl]=\"userForm.controls['lastName']\"\n                      class=\"form-control form-control-alternative\" placeholder=\"jesse@example.com\">\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-first-name\">Email</label>\n                    <input #email [formControl]=\"userForm.controls['email']\" type=\"email\" id=\"input-email\"\n                      class=\"form-control form-control-alternative\" placeholder=\"First name\" disabled>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <hr class=\"my-4\" />\n            <!-- Address -->\n            <h6 class=\"heading-small text-muted mb-4\">Contact information</h6>\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-address\">Address</label>\n                    <input id=\"input-address\" #address [formControl]=\"userForm.controls['address']\"\n                      class=\"form-control form-control-alternative\" placeholder=\"Home Address\" type=\"text\">\n                  </div>\n                </div>\n                <div class=\"col-md-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-address\">Phone Number</label>\n                    <input id=\"input-phonenumber\" #phoneNumber [formControl]=\"userForm.controls['phoneNumber']\"\n                      class=\"form-control form-control-alternative\" placeholder=\"077XXXXXX\" type=\"text\">\n                  </div>\n                </div>\n              </div>\n            </div>\n            <button class=\"btn btn-icon btn-2 btn-primary\" (click)=\"update()\" type=\"button\" [disabled]=\"isLoading\">\n              <span class=\"btn-inner--icon\" *ngIf=\"isLoading == false; else image\"><i class=\"ni ni-fat-add\"></i></span>\n              Save\n              <ng-template #image><img src=\"../../../assets/img/button-loading.gif\" />\n              </ng-template>\n            </button>\n\n          </form>\n        </div>\n        <hr class=\"my-4\" />\n        <div class=\"card-body\">\n          <form>\n            <h6 class=\"heading-small text-muted mb-4\">Bank Details</h6>\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Bank Name</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Account Holder Name</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Account Number</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n                <div class=\"col-lg-6\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Branch</label>\n                    <input type=\"text\" id=\"input-firstname\" class=\"form-control form-control-alternative\"\n                      placeholder=\"First Name\" value=\"lucky.jesse\">\n                  </div>\n                </div>\n              </div>\n\n              <button class=\"btn btn-icon btn-2 btn-primary\" type=\"button\" [disabled]='isLoading'>\n                <span class=\"btn-inner--icon\" *ngIf=\"isLoading == false; else image\"><i class=\"ni ni-fat-add\">\n                    <ng-template class=\"btn-inner--icon\" #image><img src=\"../../../assets/img/button-loading.gif\">\n                    </ng-template>\n                  </i></span>\n                Save\n              </button>\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div id=\"dummy-target\"></div>");
 
 /***/ }),
 
@@ -17107,7 +17120,7 @@ UserProfileComponent = __decorate([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\n  <div class=\"container-fluid\">\n    <div class=\"header-body\">\n      <!-- Card stats -->\n      <!-- <app-header-chart></app-header-chart> -->\n    </div>\n  </div>\n</div>\n<!-- Page content -->\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"card shadow\">\n        <div class=\"card-header bg-transparent\">\n          <h3 class=\"mb-0\">Create A Story</h3>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"storyForm\" (ngSubmit)=\"addStory()\">\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Story Name</label>\n                    <input type=\"text\" id=\"input-username\" [formControl]=\"storyForm.controls['storyName']\"\n                      [ngClass]=\"{'is-invalid': isSubmited && storyForm.controls.coverImageUrl.errors?.required}\"\n                      class=\"form-control\" placeholder=\"Story Name\" value=\"\" required>\n                    <div style=\"color: red;\" *ngIf=\"isSubmited && storyForm.controls.storyName.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                  <div>\n\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Image Url</label>\n                    <input type=\"select\" #coverImageUrl [formControl]=\"storyForm.controls['coverImageUrl']\"\n                      id=\"input-username\" class=\"form-control\" placeholder=\"Story Name\" value=\"\"\n                      [ngClass]=\"{'is-invalid': isSubmited && storyForm.controls.coverImageUrl.errors?.required}\"\n                      required>\n                    <div style=\"color: red;\" *ngIf=\"isSubmited && storyForm.controls.coverImageUrl.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-first-name\">Story Discription</label>\n                    <ckeditor [config]=\"{\n                      toolbar: {\n                        items: [\n                          'heading',\n                          '|',\n                          'bold',\n                          'italic',\n                          '|',\n                          'bulletedList',\n                          'numberedList',\n                          '|',\n                          'insertTable',\n                          '|',\n                          'undo',\n                          'redo'\n                        ]\n                      },\n                      table: {\n                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]\n                      }\n                     ,\n                      language: 'en'\n                    }\" [editor]=\"Editor\" (change)=\"change($event)\" required>\n                    </ckeditor>\n                    <div style=\"color: red;\"\n                      *ngIf=\"isSubmited && storyForm.controls.storyShortDescription.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"isSubmitting\">\n                      <i *ngIf=\"isSubmitting; else next\"> <img src=\"../../../assets/img/buttonloading.gif\">\n                      </i>\n                      <ng-template #next>\n                        <i class=\"ni ni-curved-next\"></i>Next\n                      </ng-template>\n                    </button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <hr class=\"my-4\" />\n\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<router-outlet></router-outlet>\n<!-- <div class=\"col-md-12\">\n  <div class=\"form-group\">\n    <app-ck-editor class=\"form-control form-control-alternative\"></app-ck-editor>\n  </div>\n  <div class=\"col-md-12\">\n    <div class=\"form-group\">\n      <app-ck-editor class=\"form-control form-control-alternative\"></app-ck-editor>\n    </div> -->");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\n  <div class=\"container-fluid\">\n    <div class=\"header-body\">\n      <!-- Card stats -->\n      <!-- <app-header-chart></app-header-chart> -->\n    </div>\n  </div>\n</div>\n<!-- Page content -->\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"card shadow\">\n        <div class=\"card-header bg-transparent\">\n          <h3 class=\"mb-0\">Create A Story</h3>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"storyForm\" (ngSubmit)=\"addStory()\">\n            <div class=\"pl-lg-4\">\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Story Name</label>\n                    <input type=\"text\" id=\"input-username\" [formControl]=\"storyForm.controls['storyName']\"\n                      [ngClass]=\"{'is-invalid': isSubmited && storyForm.controls.coverImageUrl.errors?.required}\"\n                      class=\"form-control\" placeholder=\"Story Name\" value=\"\" required>\n                    <div style=\"color: red;\" *ngIf=\"isSubmited && storyForm.controls.storyName.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                  <div>\n\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-username\">Image Url</label>\n                    <input type=\"select\" #coverImageUrl [formControl]=\"storyForm.controls['coverImageUrl']\"\n                      id=\"input-username\" class=\"form-control\" placeholder=\"Story Name\" value=\"\"\n                      [ngClass]=\"{'is-invalid': isSubmited && storyForm.controls.coverImageUrl.errors?.required}\"\n                      required>\n                    <div style=\"color: red;\" *ngIf=\"isSubmited && storyForm.controls.coverImageUrl.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <label class=\"form-control-label\" for=\"input-first-name\">Story Discription</label>\n                    <ckeditor [config]=\"{\n                      toolbar: {\n                        items: [\n                          'heading',\n                          '|',\n                          'bold',\n                          'italic',\n                          '|',\n                          'bulletedList',\n                          'numberedList',\n                          '|',\n                          'insertTable',\n                          '|',\n                          'undo',\n                          'redo'\n                        ]\n                      },\n                      table: {\n                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]\n                      }\n                     ,\n                      language: 'en'\n                    }\" [editor]=\"Editor\" (change)=\"change($event)\" required>\n                    </ckeditor>\n                    <div style=\"color: red;\"\n                      *ngIf=\"isSubmited && storyForm.controls.storyShortDescription.errors?.required\">\n                      This\n                      field is required.\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n                  <div class=\"form-group\">\n                    <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"isSubmitting\">\n                      <i *ngIf=\"isSubmitting; else next\"> <img src=\"../../../assets/img/button-loading.gif\">\n                      </i>\n                      <ng-template #next>\n                        <i class=\"ni ni-curved-next\"></i>\n                      </ng-template> Next\n                    </button>\n                  </div>\n                </div>\n\n              </div>\n            </div>\n            <hr class=\"my-4\" />\n\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<router-outlet></router-outlet>");
 
 /***/ }),
 
@@ -19141,12 +19154,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ckeditor/ckeditor5-angular */ "zioG");
 /* harmony import */ var src_app_components_ck_editor_ck_editor_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/components/ck-editor/ck-editor.component */ "irEQ");
 /* harmony import */ var src_app_pages_create_episodes_create_episodes_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/pages/create-episodes/create-episodes.component */ "PIsM");
+/* harmony import */ var src_app_components_story_table_story_table_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/components/story-table/story-table.component */ "U/zt");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -19176,7 +19191,7 @@ AdminLayoutModule = __decorate([
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_12__["NgbModule"],
             ngx_clipboard__WEBPACK_IMPORTED_MODULE_5__["ClipboardModule"],
             _ckeditor_ckeditor5_angular__WEBPACK_IMPORTED_MODULE_14__["CKEditorModule"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"]
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
         ],
         declarations: [
             _pages_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__["DashboardComponent"],
@@ -19186,7 +19201,8 @@ AdminLayoutModule = __decorate([
             _pages_create_story_create_story_component__WEBPACK_IMPORTED_MODULE_9__["CreateStoryComponent"],
             src_app_components_header_chart_header_chart_component__WEBPACK_IMPORTED_MODULE_13__["HeaderChartComponent"],
             src_app_components_ck_editor_ck_editor_component__WEBPACK_IMPORTED_MODULE_15__["CkEditorComponent"],
-            src_app_pages_create_episodes_create_episodes_component__WEBPACK_IMPORTED_MODULE_16__["CreateEpisodesComponent"]
+            src_app_pages_create_episodes_create_episodes_component__WEBPACK_IMPORTED_MODULE_16__["CreateEpisodesComponent"],
+            src_app_components_story_table_story_table_component__WEBPACK_IMPORTED_MODULE_17__["StoryTableComponent"]
         ],
     })
 ], AdminLayoutModule);
@@ -19332,7 +19348,7 @@ function baseIsMap(value) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\n  <div class=\"container-fluid\">\n    <div class=\"header-body\">\n      <!-- Card stats -->\n      <div class=\"row\">\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Total Earning</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">350,897</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-danger text-white rounded-circle shadow\">\n                    <i class=\"fas fa-chart-bar\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-success mr-2\"><i class=\"fa fa-arrow-up\"></i> 3.48%</span>\n                <span class=\"text-nowrap\">Since last month</span>\n              </p>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Total Users Engadge</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">2,356</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-warning text-white rounded-circle shadow\">\n                    <i class=\"fas fa-users\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-danger mr-2\"><i class=\"fas fa-arrow-down\"></i> 3.48%</span>\n                <span class=\"text-nowrap\">Since last week</span>\n              </p>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Stories</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">924</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-yellow text-white rounded-circle shadow\">\n                    <i class=\"fas fa-book\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-warning mr-2\"><i class=\"fas fa-arrow-down\"></i> 1.10%</span>\n                <span class=\"text-nowrap\">Since yesterday</span>\n              </p>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Episodes</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">49,65</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-info text-white rounded-circle shadow\">\n                    <i class=\"fas fa-ungroup\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-success mr-2\"><i class=\"fas fa-arrow-up\"></i> 12%</span>\n                <span class=\"text-nowrap\">Since last month</span>\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col-xl-8 mb-5 mb-xl-0\">\n      <div class=\"card bg-gradient-default shadow\">\n        <div class=\"card-header bg-transparent\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h6 class=\"text-uppercase text-light ls-1 mb-1\">Overview</h6>\n              <h2 class=\"text-white mb-0\">Sales value</h2>\n            </div>\n            <div class=\"col\">\n              <ul class=\"nav nav-pills justify-content-end\">\n                <li class=\"nav-item mr-2 mr-md-0\" data-toggle=\"chart\" data-target=\"#chart-sales\"\n                  (click)=\"data=datasets[0];updateOptions()\">\n                  <a href=\"javascript:void(0)\" class=\"nav-link py-2 px-3\" data-toggle=\"tab\"\n                    (click)=\"clicked=true;clicked1=false\">\n                    <span class=\"d-none d-md-block\">Month</span>\n                    <span class=\"d-md-none\">M</span>\n                  </a>\n                </li>\n                <li class=\"nav-item\" data-toggle=\"chart\" data-target=\"#chart-sales\"\n                  (click)=\"data=datasets[1];updateOptions()\">\n                  <a href=\"javascript:void(0)\" class=\"nav-link py-2 px-3\" [ngClass]=\"{'active':clicked1===true}\"\n                    data-toggle=\"tab\" (click)=\"clicked=false;clicked1=true\">\n                    <span class=\"d-none d-md-block\">Week</span>\n                    <span class=\"d-md-none\">W</span>\n                  </a>\n                </li>\n              </ul>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <!-- Chart -->\n          <div class=\"chart\">\n            <!-- Chart wrapper -->\n            <canvas id=\"chart-sales\" class=\"chart-canvas\"></canvas>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-xl-4\">\n      <div class=\"card shadow\">\n        <div class=\"card-header bg-transparent\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h6 class=\"text-uppercase text-muted ls-1 mb-1\">How many peoples Engadge</h6>\n              <h2 class=\"mb-0\">Total Readers</h2>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <!-- Chart -->\n          <div class=\"chart\">\n            <canvas id=\"chart-orders\" class=\"chart-canvas\"></canvas>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row mt-5\">\n    <div class=\"col-xl-8 mb-5 mb-xl-0\">\n      <div class=\"card shadow\">\n        <div class=\"card-header border-0\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h3 class=\"mb-0\">Story by earnings</h3>\n            </div>\n            <div class=\"col text-right\">\n              <a href=\"#!\" class=\"btn btn-sm btn-primary\">See all</a>\n            </div>\n          </div>\n        </div>\n        <div class=\"table-responsive\">\n          <!-- Projects table -->\n          <table class=\"table align-items-center table-flush\">\n            <thead class=\"thead-light\">\n              <tr>\n                <th scope=\"col\">Story Name</th>\n                <th scope=\"col\">Readers</th>\n                <th scope=\"col\">Income</th>\n                <th scope=\"col\">Number of Episodes</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <th scope=\"row\">\n                  Sulaga Nuba Saha Mama\n                </th>\n                <td>\n                  4,569\n                </td>\n                <td>\n                  6700\n                </td>\n                <td>\n                  190\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Illandariya\n                </th>\n                <td>\n                  3,985\n                </td>\n                <td>\n                  319\n                </td>\n                <td>\n                  53\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Ath Harunu Ath\n                </th>\n                <td>\n                  3,513\n                </td>\n                <td>\n                  294\n                </td>\n                <td>\n                  49\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Sulanga Nuba saha Mama 2\n                </th>\n                <td>\n                  2,050\n                </td>\n                <td>\n                  147\n                </td>\n                <td>\n                  87\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Ananthaya\n                </th>\n                <td>\n                  1,795\n                </td>\n                <td>\n                  190\n                </td>\n                <td>\n                  53\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-xl-4\">\n      <div class=\"card shadow\">\n        <div class=\"card-header border-0\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h3 class=\"mb-0\">Social traffic</h3>\n            </div>\n            <div class=\"col text-right\">\n              <a href=\"#!\" class=\"btn btn-sm btn-primary\">See all</a>\n            </div>\n          </div>\n        </div>\n        <div class=\"table-responsive\">\n          <!-- Projects table -->\n          <table class=\"table align-items-center table-flush\">\n            <thead class=\"thead-light\">\n              <tr>\n                <th scope=\"col\">Referral</th>\n                <th scope=\"col\">Visitors</th>\n                <th scope=\"col\"></th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <th scope=\"row\">\n                  Facebook\n                </th>\n                <td>\n                  1,480\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">60%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-danger\" role=\"progressbar\" aria-valuenow=\"60\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Facebook\n                </th>\n                <td>\n                  5,480\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">70%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-success\" role=\"progressbar\" aria-valuenow=\"70\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 70%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Google\n                </th>\n                <td>\n                  4,807\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">80%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-primary\" role=\"progressbar\" aria-valuenow=\"80\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 80%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Instagram\n                </th>\n                <td>\n                  3,678\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">75%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-info\" role=\"progressbar\" aria-valuenow=\"75\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 75%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  twitter\n                </th>\n                <td>\n                  2,645\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">30%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-warning\" role=\"progressbar\" aria-valuenow=\"30\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 30%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header bg-gradient-danger pb-8 pt-5 pt-md-8\">\n  <div class=\"container-fluid\">\n    <div class=\"header-body\">\n      <!-- Card stats -->\n      <div class=\"row\">\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Total Earning</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">350,897</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-danger text-white rounded-circle shadow\">\n                    <i class=\"fas fa-chart-bar\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-success mr-2\"><i class=\"fa fa-arrow-up\"></i> 3.48%</span>\n                <span class=\"text-nowrap\">Since last month</span>\n              </p>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Total Users Engadge</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">2,356</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-warning text-white rounded-circle shadow\">\n                    <i class=\"fas fa-users\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-danger mr-2\"><i class=\"fas fa-arrow-down\"></i> 3.48%</span>\n                <span class=\"text-nowrap\">Since last week</span>\n              </p>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Stories</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">924</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-yellow text-white rounded-circle shadow\">\n                    <i class=\"fas fa-book\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-warning mr-2\"><i class=\"fas fa-arrow-down\"></i> 1.10%</span>\n                <span class=\"text-nowrap\">Since yesterday</span>\n              </p>\n            </div>\n          </div>\n        </div>\n        <div class=\"col-xl-3 col-lg-6\">\n          <div class=\"card card-stats mb-4 mb-xl-0\">\n            <div class=\"card-body\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <h5 class=\"card-title text-uppercase text-muted mb-0\">Episodes</h5>\n                  <span class=\"h2 font-weight-bold mb-0\">49,65</span>\n                </div>\n                <div class=\"col-auto\">\n                  <div class=\"icon icon-shape bg-info text-white rounded-circle shadow\">\n                    <i class=\"fas fa-ungroup\"></i>\n                  </div>\n                </div>\n              </div>\n              <p class=\"mt-3 mb-0 text-muted text-sm\">\n                <span class=\"text-success mr-2\"><i class=\"fas fa-arrow-up\"></i> 12%</span>\n                <span class=\"text-nowrap\">Since last month</span>\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"container-fluid mt--7\">\n  <div class=\"row\">\n    <div class=\"col-xl-8 mb-5 mb-xl-0\">\n      <div class=\"card bg-gradient-default shadow\">\n        <div class=\"card-header bg-transparent\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h6 class=\"text-uppercase text-light ls-1 mb-1\">Overview</h6>\n              <h2 class=\"text-white mb-0\">Sales value</h2>\n            </div>\n            <div class=\"col\">\n              <ul class=\"nav nav-pills justify-content-end\">\n                <li class=\"nav-item mr-2 mr-md-0\" data-toggle=\"chart\" data-target=\"#chart-sales\"\n                  (click)=\"data=datasets[0];updateOptions()\">\n                  <a href=\"javascript:void(0)\" class=\"nav-link py-2 px-3\" data-toggle=\"tab\"\n                    (click)=\"clicked=true;clicked1=false\">\n                    <span class=\"d-none d-md-block\">Month</span>\n                    <span class=\"d-md-none\">M</span>\n                  </a>\n                </li>\n                <li class=\"nav-item\" data-toggle=\"chart\" data-target=\"#chart-sales\"\n                  (click)=\"data=datasets[1];updateOptions()\">\n                  <a href=\"javascript:void(0)\" class=\"nav-link py-2 px-3\" [ngClass]=\"{'active':clicked1===true}\"\n                    data-toggle=\"tab\" (click)=\"clicked=false;clicked1=true\">\n                    <span class=\"d-none d-md-block\">Week</span>\n                    <span class=\"d-md-none\">W</span>\n                  </a>\n                </li>\n              </ul>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <!-- Chart -->\n          <div class=\"chart\">\n            <!-- Chart wrapper -->\n            <canvas id=\"chart-sales\" class=\"chart-canvas\"></canvas>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"col-xl-4\">\n      <div class=\"card shadow\">\n        <div class=\"card-header bg-transparent\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h6 class=\"text-uppercase text-muted ls-1 mb-1\">How many peoples Engadge</h6>\n              <h2 class=\"mb-0\">Total Readers</h2>\n            </div>\n          </div>\n        </div>\n        <div class=\"card-body\">\n          <!-- Chart -->\n          <div class=\"chart\">\n            <canvas id=\"chart-orders\" class=\"chart-canvas\"></canvas>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row mt-5\">\n    <div class=\"col-xl-8 mb-5 mb-xl-0\">\n      <app-story-table class=\"story-table\"></app-story-table>\n    </div>\n    <div class=\"col-xl-4\">\n      <div class=\"card shadow\">\n        <div class=\"card-header border-0\">\n          <div class=\"row align-items-center\">\n            <div class=\"col\">\n              <h3 class=\"mb-0\">Social traffic</h3>\n            </div>\n            <div class=\"col text-right\">\n              <a href=\"#!\" class=\"btn btn-sm btn-primary\">See all</a>\n            </div>\n          </div>\n        </div>\n        <div class=\"table-responsive\">\n          <!-- Projects table -->\n          <table class=\"table align-items-center table-flush\">\n            <thead class=\"thead-light\">\n              <tr>\n                <th scope=\"col\">Referral</th>\n                <th scope=\"col\">Visitors</th>\n                <th scope=\"col\"></th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <th scope=\"row\">\n                  Facebook\n                </th>\n                <td>\n                  1,480\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">60%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-danger\" role=\"progressbar\" aria-valuenow=\"60\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Facebook\n                </th>\n                <td>\n                  5,480\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">70%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-success\" role=\"progressbar\" aria-valuenow=\"70\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 70%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Google\n                </th>\n                <td>\n                  4,807\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">80%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-primary\" role=\"progressbar\" aria-valuenow=\"80\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 80%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  Instagram\n                </th>\n                <td>\n                  3,678\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">75%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-info\" role=\"progressbar\" aria-valuenow=\"75\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 75%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n              <tr>\n                <th scope=\"row\">\n                  twitter\n                </th>\n                <td>\n                  2,645\n                </td>\n                <td>\n                  <div class=\"d-flex align-items-center\">\n                    <span class=\"mr-2\">30%</span>\n                    <div>\n                      <div class=\"progress\">\n                        <div class=\"progress-bar bg-gradient-warning\" role=\"progressbar\" aria-valuenow=\"30\"\n                          aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 30%;\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>");
 
 /***/ }),
 
@@ -24494,6 +24510,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/Services/Auth.service */ "F5kq");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "+z1p");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/Api/story-api.service */ "W1+X");
+/* harmony import */ var src_app_Api_episode_api_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/Api/episode-api.service */ "tgYE");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "PdH4");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24509,54 +24531,97 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
 let CreateEpisodesComponent = class CreateEpisodesComponent {
-    constructor(activeRoutes, authService, router, formBuilder) {
+    constructor(activeRoutes, authService, router, formBuilder, storyApi, episodeApi) {
         this.authService = authService;
         this.router = router;
         this.formBuilder = formBuilder;
+        this.storyApi = storyApi;
+        this.episodeApi = episodeApi;
+        this.Editor = _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6__;
+        this.Editor1 = _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_6__;
         this.activeRoutes = activeRoutes;
-        this.episodeForm = this.formBuilder.group({
-            episodeName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
-            episodeShortDescription: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
-            episodeCoverImageUrl: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
-            episodeContent: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
-            storyId: this.storyId,
-            episodeId: undefined
-        });
+        this.isSubmitting = false;
+        this.isSubmitted = false;
     }
     ngOnInit() {
         if (!this.authService.isSignedInUser()) {
             this.router.navigate(['/login']);
         }
         this.isRouterContentId();
+        this.episodeForm = this.formBuilder.group({
+            episodeName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            episodeShortDescription: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            episodeCoverImageUrl: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            episodeContent: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            storyId: [this.storyId ? +this.storyId : '', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
+        });
     }
     isRouterContentId() {
         this.activeRoutes.params.subscribe(params => {
             this.storyId = params['id'];
             this.storyName = params['storyName'];
+            if (!this.storyId) {
+                this.getStoriesByAutherToCombo();
+            }
         });
     }
     addEpiosode() {
-        console.log('content', this.content);
+        this.isSubmitted = true;
+        if (this.episodeForm.valid) {
+            this.isSubmitting = true;
+            this.episodeApi.addepisode(this.episodeForm.value).subscribe(response => {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9___default.a.fire('Successfuly added Episode.', '', 'success');
+                this.isSubmitting = false;
+            }, error => {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_9___default.a.fire('Fail to add Episode.', 'Please check your are online, or contact us.', 'error');
+                this.isSubmitting = false;
+                console.error(console.error(error));
+            });
+            this.isSubmitted = false;
+        }
+    }
+    getStoriesByAutherToCombo() {
+        this.storyApi.
+            getStoriesByAuther(JSON.parse(localStorage.getItem('user')).autherId, 1, 2)
+            .subscribe(response => { this.storiesByAuther = response[0].stories; });
+    }
+    onCHangeEpisodeShortDes({ editor }) {
+        const Editor = editor.getData();
+        this.episodeForm.get('episodeShortDescription').setValue(Editor);
+    }
+    onChangeEpisodeContent({ editor }) {
+        const Editor = editor.getData();
+        this.episodeForm.get('episodeContent').setValue(Editor);
+    }
+    selectStory(e) {
+        this.episodeForm.get('storyId').setValue(+e.target.value);
     }
 };
 CreateEpisodesComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
     { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] }
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+    { type: src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_7__["StoryApiService"] },
+    { type: src_app_Api_episode_api_service__WEBPACK_IMPORTED_MODULE_8__["EpisodeApiService"] }
 ];
-CreateEpisodesComponent.propDecorators = {
-    content: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["ViewChild"], args: ['content',] }]
-};
 CreateEpisodesComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-create-episodes',
         template: _raw_loader_create_episodes_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_create_episodes_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
     }),
-    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"]])
+    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+        src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"],
+        src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_7__["StoryApiService"],
+        src_app_Api_episode_api_service__WEBPACK_IMPORTED_MODULE_8__["EpisodeApiService"]])
 ], CreateEpisodesComponent);
 
 
@@ -31264,6 +31329,102 @@ function valuesIn(object) {
 
 /***/ }),
 
+/***/ "U/zt":
+/*!*****************************************************************!*\
+  !*** ./src/app/components/story-table/story-table.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: StoryTableComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StoryTableComponent", function() { return StoryTableComponent; });
+/* harmony import */ var _raw_loader_story_table_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! raw-loader!./story-table.component.html */ "btee");
+/* harmony import */ var _story_table_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./story-table.component.scss */ "1f2v");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/Api/story-api.service */ "W1+X");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+let StoryTableComponent = class StoryTableComponent {
+    constructor(storyApi) {
+        this.storyApi = storyApi;
+        this.isLoading = false;
+        this.isApprove = false;
+    }
+    ngOnInit() {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.getSigninUserStories();
+    }
+    getSigninUserStories() {
+        this.isLoading = true;
+        if (this.user.isSuperAUther) {
+            this.storyApi.superAutherStories().subscribe(story => {
+                this.allStories = story;
+                localStorage.setItem('stories', JSON.stringify(story));
+                this.isLoading = false;
+            });
+        }
+        else {
+            this.storyApi.getStoriesByAutherId(this.user.autherId).subscribe(res => {
+                this.allStories = res[0].stories;
+                this.isLoading = false;
+                localStorage.setItem('stories', JSON.stringify(this.allStories = res[0].stories));
+            });
+        }
+    }
+    onAprrove(storyId) {
+        this.isApprove = true;
+        const approve = {
+            aprrovedBy: this.user.autherId,
+            aprrovedType: 'story',
+            propertyId: storyId,
+            value: true
+        };
+        this.storyApi.approveStoryAndEpisode(approve).subscribe(res => {
+            if (res.isSuccess) {
+                this.realTimeStoryUpdate(storyId);
+                this.isApprove = false;
+            }
+        });
+    }
+    realTimeStoryUpdate(storyId) {
+        this.allStories = JSON.parse(localStorage.getItem('stories'));
+        this.allStories.map((data, key) => {
+            if (data.storyId === storyId) {
+                data.isActive = true;
+            }
+        });
+        localStorage.setItem('stories', JSON.stringify(this.allStories));
+        this.allStories = JSON.parse(localStorage.getItem('stories'));
+    }
+};
+StoryTableComponent.ctorParameters = () => [
+    { type: src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_3__["StoryApiService"] }
+];
+StoryTableComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        selector: 'app-story-table',
+        template: _raw_loader_story_table_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_story_table_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+    }),
+    __metadata("design:paramtypes", [src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_3__["StoryApiService"]])
+], StoryTableComponent);
+
+
+
+/***/ }),
+
 /***/ "U1Qw":
 /*!***********************************************!*\
   !*** ./node_modules/lodash-es/_baseRepeat.js ***!
@@ -31328,8 +31489,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! chart.js */ "WyAD");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _variables_charts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../variables/charts */ "WY8G");
-/* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/Services/Auth.service */ "F5kq");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var src_app_Api_dashboard_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Api/dashboard-api.service */ "VZKE");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31346,11 +31506,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 // core components
 
 
-
 let DashboardComponent = class DashboardComponent {
-    constructor(authService, router) {
-        this.authService = authService;
-        this.router = router;
+    constructor(dashboardApi) {
+        this.dashboardApi = dashboardApi;
         this.clicked = true;
         this.clicked1 = false;
     }
@@ -31380,8 +31538,7 @@ let DashboardComponent = class DashboardComponent {
     }
 };
 DashboardComponent.ctorParameters = () => [
-    { type: src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] }
+    { type: src_app_Api_dashboard_api_service__WEBPACK_IMPORTED_MODULE_5__["DashboardApiService"] }
 ];
 DashboardComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
@@ -31389,7 +31546,7 @@ DashboardComponent = __decorate([
         template: _raw_loader_dashboard_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_dashboard_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
     }),
-    __metadata("design:paramtypes", [src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
+    __metadata("design:paramtypes", [src_app_Api_dashboard_api_service__WEBPACK_IMPORTED_MODULE_5__["DashboardApiService"]])
 ], DashboardComponent);
 
 
@@ -32777,6 +32934,48 @@ function copySymbols(source, object) {
 
 /***/ }),
 
+/***/ "VZKE":
+/*!**********************************************!*\
+  !*** ./src/app/Api/dashboard-api.service.ts ***!
+  \**********************************************/
+/*! exports provided: DashboardApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardApiService", function() { return DashboardApiService; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+let DashboardApiService = class DashboardApiService {
+    constructor(http) {
+        this.http = http;
+    }
+};
+DashboardApiService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] }
+];
+DashboardApiService = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+], DashboardApiService);
+
+
+
+/***/ }),
+
 /***/ "Vclq":
 /*!*********************************************!*\
   !*** ./node_modules/moment/locale/es-us.js ***!
@@ -33440,12 +33639,19 @@ let StoryApiService = class StoryApiService {
         this.http = http;
     }
     addStory(story) {
-        //   const httpOptions = {
-        //   headers: new HttpHeaders({
-        //     'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        //   })
-        // };
         return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/story/AddStory`, story);
+    }
+    getStoriesByAuther(autherId, skip, take) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/story/getStoriesByAutherId/${autherId.toString()}`);
+    }
+    getStoriesByAutherId(autherId) {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/story/getStoriesByAutherId/${autherId}`);
+    }
+    approveStoryAndEpisode(data) {
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/story/approve`, data);
+    }
+    superAutherStories() {
+        return this.http.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/story/GetAllStoriesForSupperUser`);
     }
 };
 StoryApiService.ctorParameters = () => [
@@ -37961,6 +38167,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_Services_Auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/Services/Auth.service */ "F5kq");
 /* harmony import */ var src_app_Api_story_api_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/Api/story-api.service */ "W1+X");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "PdH4");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_8__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -37970,6 +38178,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -38015,13 +38224,13 @@ let CreateStoryComponent = class CreateStoryComponent {
             const story = {
                 autherId: user.autherId,
                 coverImageUrl: this.storyForm.value['coverImageUrl'],
-                isActive: this.storyForm.value['isActive'],
                 storyName: this.storyForm.value['storyName'],
                 storyShortDescription: this.storyForm.value['storyShortDescription'],
                 storyId: undefined
             };
             this.storyApi.addStory(story)
                 .subscribe(response => {
+                sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_8___default.a.fire('Successfuly added story. Add episodes from here.', '', 'success');
                 this.goToEpisode(response.storyId, response.storyName);
             }, err => { console.log('error', err); this.isSubmitting = false; });
             this.isSubmited = false;
@@ -41188,6 +41397,19 @@ module.exports = function(Chart) {
 
 })));
 
+
+/***/ }),
+
+/***/ "btee":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/story-table/story-table.component.html ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"table-size\">\n  <div class=\"card shadow\">\n    <div class=\"card-header border-0\">\n      <div class=\"row align-items-center\">\n        <div class=\"col\">\n          <h3 class=\"mb-0\">My Stories</h3>\n        </div>\n      </div>\n    </div>\n    <div class=\"table-size\">\n      <div class=\"table-responsive\">\n        <!-- Projects table -->\n        <table class=\"table align-items-center  table-flush\">\n          <thead class=\"thead-light\">\n            <tr>\n              <th scope=\"col\">Story Name</th>\n              <th scope=\"col\">Approve</th>\n              <th scope=\"col\">Story Reference Number</th>\n              <th scope=\"col\">Action</th>\n              <th scope=\"col\" *ngIf=\"user.isSuperAUther\" scope=\"col\">Approve</th>\n            </tr>\n          </thead>\n          <img class=\"align-items-center\" src=\"../../../assets/img/table-loading.gif\" *ngIf=\"isLoading\">\n          <tbody>\n            <tr *ngFor=\"let story of allStories\">\n              <th scope=\"row\">\n                {{story.storyName}}\n              </th>\n              <td>\n                <img *ngIf=\"isApprove; else loading\" src=\"../../../assets/img/column-loading.gif\" />\n\n                <ng-template #loading>\n                  <span *ngIf=\"story.isActive; else pending\" style=\"color: limegreen;\"> Approved</span>\n                  <ng-template #pending><span style=\"color: red;\">Pending</span></ng-template>\n                </ng-template>\n              </td>\n              <td>\n                story-ref-{{story.storyId}}\n              </td>\n              <td>\n                <a href=\"javascript:void\">Edit</a>/ <a href=\"javascript:void\">View</a>\n              </td>\n              <td *ngIf=\"user.isSuperAUther\">\n                <a *ngIf=\"!story.isActive; else approved\" href=\"javascript:void\" (click)=\"onAprrove(story.storyId)\"\n                  disabled>Approve</a>\n                <ng-template #approved>Approved</ng-template>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n  </div>");
 
 /***/ }),
 
@@ -60424,6 +60646,53 @@ function cloneSymbol(symbol) {
     return jv;
 
 })));
+
+
+/***/ }),
+
+/***/ "tgYE":
+/*!********************************************!*\
+  !*** ./src/app/Api/episode-api.service.ts ***!
+  \********************************************/
+/*! exports provided: EpisodeApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EpisodeApiService", function() { return EpisodeApiService; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+let EpisodeApiService = class EpisodeApiService {
+    constructor(http) {
+        this.http = http;
+    }
+    addepisode(episode) {
+        return this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiBaseUrl}/api/Episode/AddEpisode`, episode);
+    }
+};
+EpisodeApiService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] }
+];
+EpisodeApiService = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+], EpisodeApiService);
+
 
 
 /***/ }),
