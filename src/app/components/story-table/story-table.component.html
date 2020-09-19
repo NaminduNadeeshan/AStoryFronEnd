@@ -1,0 +1,53 @@
+<div class="table-size">
+  <div class="card shadow">
+    <div class="card-header border-0">
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0">My Stories</h3>
+        </div>
+      </div>
+    </div>
+    <div class="table-size">
+      <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center  table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Story Name</th>
+              <th scope="col">Approve</th>
+              <th scope="col">Story Reference Number</th>
+              <th scope="col">Action</th>
+              <th scope="col" *ngIf="user.isSuperAUther" scope="col">Approve</th>
+            </tr>
+          </thead>
+          <img class="align-items-center" src="../../../assets/img/table-loading.gif" *ngIf="isLoading">
+          <tbody>
+            <tr *ngFor="let story of allStories">
+              <th scope="row">
+                {{story.storyName}}
+              </th>
+              <td>
+                <img *ngIf="isApprove; else loading" src="../../../assets/img/column-loading.gif" />
+
+                <ng-template #loading>
+                  <span *ngIf="story.isActive; else pending" style="color: limegreen;"> Approved</span>
+                  <ng-template #pending><span style="color: red;">Pending</span></ng-template>
+                </ng-template>
+              </td>
+              <td>
+                story-ref-{{story.storyId}}
+              </td>
+              <td>
+                <a href="javascript:void">Edit</a>/ <a href="javascript:void">View</a>
+              </td>
+              <td *ngIf="user.isSuperAUther">
+                <a *ngIf="!story.isActive; else approved" href="javascript:void" (click)="onAprrove(story.storyId)"
+                  disabled>Approve</a>
+                <ng-template #approved>Approved</ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

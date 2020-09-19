@@ -17,6 +17,8 @@ import { CkEditorComponent } from 'src/app/components/ck-editor/ck-editor.compon
 import { CreateEpisodesComponent } from 'src/app/pages/create-episodes/create-episodes.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TokenInterceptor } from 'src/app/Api/token.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { StoryTableComponent } from 'src/app/components/story-table/story-table.component';
 
 
 @NgModule({
@@ -28,7 +30,7 @@ import { TokenInterceptor } from 'src/app/Api/token.interceptor';
     NgbModule,
     ClipboardModule,
     CKEditorModule,
-    CommonModule
+    CommonModule,
   ],
   declarations: [
     DashboardComponent,
@@ -38,7 +40,8 @@ import { TokenInterceptor } from 'src/app/Api/token.interceptor';
     CreateStoryComponent,
     HeaderChartComponent,
     CkEditorComponent,
-    CreateEpisodesComponent
+    CreateEpisodesComponent,
+    StoryTableComponent
   ],
 })
 

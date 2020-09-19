@@ -15,7 +15,7 @@
           <h3 class="mb-0">Create A Episode</h3>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="episodeForm" (ngSubmit)="addEpiosode()">
             <div class="pl-lg-4">
               <div *ngIf="storyId != undefined; else notSelected" class="row">
                 <div class="col-lg-12">
@@ -30,20 +30,34 @@
                   <div class="col-lg-12">
                     <div class="form-group">
                       <label class="form-control-label">Select Story</label>
-                      <select class="form-control form-control-alternative" value="">
-                        <option>සුලග නුබ සහ මම</option>
-                        <option>අනන්තය</option>
+                      <select [ngClass]="{'is-invalid': isSubmitted && episodeForm.controls.storyId.errors?.required}"
+                        (change)="selectStory($event)" [formControl]="episodeForm.controls['storyId']"
+                        class="form-control " value="" required>
+                        <option class="form-control form-control-alternative" *ngFor="let story of storiesByAuther"
+                          value="{{story.storyId}}">{{story.storyName}}
+                        </option>
                       </select>
+                      <div style="color: red;" *ngIf="isSubmitted && episodeForm.controls.storyId.errors?.required">
+                        This
+                        field is required.
+                      </div>
                     </div>
                   </div>
                 </div>
               </ng-template>
+              {{isSubmiteds}}
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Episode Name</label>
-                    <input type="select" id="input-username" class="form-control form-control-alternative"
-                      placeholder="Story Name" value="">
+                    <input type="text" id="input-username" class="form-control" placeholder="Story Name" value=""
+                      [formControl]="episodeForm.controls['episodeName']"
+                      [ngClass]="{'is-invalid':  isSubmitted && episodeForm.controls.episodeName.errors?.required}"
+                      required>
+                    <div style=" color: red;" *ngIf="isSubmitted && episodeForm.controls.episodeName.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -51,16 +65,49 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Image Url</label>
-                    <input type="select" id="input-username" class="form-control form-control-alternative"
-                      placeholder="Story Name" value="">
+                    <input type="select" id="input-username" class="form-control" placeholder="Story Name" value=""
+                      [ngClass]="{'is-invalid': isSubmitted && episodeForm.controls.episodeCoverImageUrl.errors?.required}"
+                      [formControl]="episodeForm.controls['episodeCoverImageUrl']" required>
+                    <div style=" color: red;" *ngIf=" isSubmitted && episodeForm.controls.episodeName.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">Episode Summery</label>
-                    <app-ck-editor></app-ck-editor>
+                    <label class="form-control-label" for="input-first-name">Episode Summary</label>
+                    <ckeditor [config]="{
+                      toolbar: {
+                        items: [
+                          'heading',
+                          '|',
+                          'bold',
+                          'italic',
+                          '|',
+                          'bulletedList',
+                          'numberedList',
+                          '|',
+                          'insertTable',
+                          '|',
+                          'undo',
+                          'redo'
+                        ]
+                      },
+                      table: {
+                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+                      }
+                     ,
+                      language: 'en'
+                    }" [editor]="Editor" (change)="onCHangeEpisodeShortDes($event)" required>
+                    </ckeditor>
+                    <div style=" color: red;"
+                      *ngIf="isSubmitted && episodeForm.controls.episodeShortDescription.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -68,22 +115,55 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                     <label class="form-control-label">Episode Content</label>
-                    <app-ck-editor></app-ck-editor>
+                    <ckeditor [config]="{
+                      toolbar: {
+                        items: [
+                          'heading',
+                          '|',
+                          'bold',
+                          'italic',
+                          '|',
+                          'bulletedList',
+                          'numberedList',
+                          '|',
+                          'insertTable',
+                          '|',
+                          'undo',
+                          'redo'
+                        ]
+                      },
+                      table: {
+                        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+                      }
+                     ,
+                      language: 'en'
+                    }" [editor]="Editor1" (change)="onChangeEpisodeContent($event)" required>
+                    </ckeditor>
+                    <div style="color: red;"
+                      *ngIf="isSubmitted && episodeForm.controls.episodeContent.errors?.required">
+                      This
+                      field is required.
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <button type="button" (click)="addEpiosode()" class="btn btn-success"><i class="ni ni-fat-add"></i>
-                      Save</button>
+                    <button type="submit" class="btn btn-success" [disabled]="isSubmitting">
+                      <i *ngIf="isSubmitting; else next"> <img src="../../../assets/img/button-loading.gif">
+                      </i>
+                      <ng-template #next>
+                        <i class="ni ni-fat-add"></i>
+                      </ng-template>
+                      Save
+                    </button>
                   </div>
                 </div>
 
               </div>
             </div>
             <hr class="my-4" />
-
           </form>
         </div>
       </div>

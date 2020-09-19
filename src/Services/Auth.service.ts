@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
-import { IUser } from 'src/app/models/User';
+import { IUser, IUserResponse } from 'src/app/models/User';
 import * as Firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -46,8 +46,8 @@ userSignIn() {
 
   const userLocal: IUser = {
     address : '',
-    firstName: user.displayName.split(' ')[0],
-    lastName: user.displayName.split(' ')[1],
+    firstName: user.displayName.split(' ')[0].trim(),
+    lastName: user.displayName.split(' ')[1].trim(),
     phoneNumber: user.phoneNumber,
     profilePictureUrl: user.photoURL,
     email: user.email,
@@ -55,7 +55,7 @@ userSignIn() {
 
   };
 
- this.autherApi.addUserToDataBase(userLocal).subscribe((users: any) => {
+ this.autherApi.addUserToDataBase(userLocal).subscribe((users: IUserResponse) => {
   this.isLoading = true;
    this.saveSignInUserToLocalStore(users, this.token, user.refreshToken);
  });
