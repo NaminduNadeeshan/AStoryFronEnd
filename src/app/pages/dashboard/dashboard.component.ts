@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js';
 
 // core components
@@ -17,15 +17,21 @@ import {  IUserResponse } from 'src/app/models/User';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
 
   public datasets: any;
   public data: any;
   public salesChart;
   public clicked = true;
   public clicked1 = false;
+  public storyCount: IStory[];
+  public storyLength: number;
 
   constructor(private dashboardApi: DashboardApiService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+   console.log('sjs', changes);
+  }
 
   ngOnInit() {
     this.datasets = [
@@ -53,6 +59,9 @@ export class DashboardComponent implements OnInit {
       options: chartExample1.options,
       data: chartExample1.data
     });
+
+    this.storyCount =  JSON.parse(localStorage.getItem('stories'));
+    this.storyLength = this.storyCount?.length;
   }
 
   public updateOptions() {

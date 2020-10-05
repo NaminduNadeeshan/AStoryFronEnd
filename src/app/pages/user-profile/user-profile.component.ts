@@ -50,6 +50,7 @@ export class UserProfileComponent implements OnInit {
   'success'
 );
 this.isLoading = false;
+this.user = JSON.parse(localStorage.getItem('user'));
 }, (error) => {
   console.log('error', error);
   this.isLoading = false;

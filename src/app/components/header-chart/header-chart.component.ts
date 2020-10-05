@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IStory } from 'src/app/models/story';
 
 @Component({
   selector: 'app-header-chart',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderChartComponent implements OnInit {
 
+  public stories: IStory[];
   constructor() { }
 
   ngOnInit() {
+    this.stories = JSON.parse(localStorage.getItem('stories'));
   }
 
 }
